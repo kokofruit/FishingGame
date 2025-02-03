@@ -20,18 +20,24 @@ public class ReelManager : MonoBehaviour
     // The last rotation of the reel
     float lastRot = 0f;
 
+    // The fish bar manager
+    FishBarManager fishBarManager;
+
     // Initialize variables
     void Start()
     {
         mainRect = GetComponent<RectTransform>();
         reelRB = reel.GetComponent<Rigidbody2D>();
+        fishBarManager = FindFirstObjectByType<FishBarManager>();
     }
     
     // Call helper functions every frame
     void FixedUpdate()
     {
         RotateReel();
-        MeasureSpeed();
+        float speed = MeasureSpeed();
+        //fishBarManager.MoveFishBar(speed / turnSpeed);
+        PointerController.instance.MovePointer(speed / turnSpeed);
     }
 
     void RotateReel()
@@ -48,15 +54,17 @@ public class ReelManager : MonoBehaviour
     {
         // Calculate the speed of rotation by the difference from the last frame
         float diff = -1f * (reelRB.rotation - lastRot);
+        float speed = diff / Time.deltaTime;
+
         // Update the last-rotation variable
         lastRot = reelRB.rotation;
 
         // If the difference is positive, return that
-        if (diff >= 0)
+        if (speed >= 0)
         {
-            if (DEBUG) print("Rotation since last frame: " + diff);
+            if (DEBUG) print("Rotation per frame: " + speed);
 
-            return diff;
+            return speed;
         }
         // If not, return zero
         return 0f;
