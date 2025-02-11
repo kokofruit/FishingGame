@@ -55,6 +55,9 @@ public class ReelManager : MonoBehaviour
         // Calculate the speed of rotation by the difference from the last frame
         float diff = -1f * (reelRB.rotation - lastRot);
         float speed = diff / Time.deltaTime;
+        if (DEBUG) print("Rotation: " + reelRB.rotation);
+        if (DEBUG) print("Rotation since last frame: " + diff);
+        if (DEBUG) print("Rotation per second: " + speed);
 
         // Update the last-rotation variable
         lastRot = reelRB.rotation;
@@ -62,8 +65,6 @@ public class ReelManager : MonoBehaviour
         // If the difference is positive, return that
         if (speed >= 0)
         {
-            if (DEBUG) print("Rotation per frame: " + speed);
-
             return speed;
         }
         // If not, return zero

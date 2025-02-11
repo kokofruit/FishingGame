@@ -11,6 +11,8 @@ public class FishBarManager : MonoBehaviour
     // The target that moves around
     [SerializeField] Image target;
 
+    [SerializeField] float moveSpeed;
+
     float minPos;
     float maxPos;
     float range;
@@ -19,15 +21,16 @@ public class FishBarManager : MonoBehaviour
     void Start()
     {
         // Store the range of the fish bar
-        range = rangeBar.GetComponent<RectTransform>().rect.width;
+        RectTransform rangeRectTransform = rangeBar.GetComponent<RectTransform>();
+        range = rangeRectTransform.rect.width;
 
         // Store the left-most position of the target
-        minPos = target.transform.position.x;
+        float fishBarWidth = target.rectTransform.rect.width;
+        minPos = rangeRectTransform.position.x - range / 2 + fishBarWidth / 2;
 
         // Calculate the right-most position of the fish bar
-        float fishBarWidth = target.rectTransform.rect.width;
-        maxPos = minPos + range - fishBarWidth;
-        
+        maxPos = rangeRectTransform.position.x + range / 2 + fishBarWidth / 2;
+
         //print("range: " + range + ". minPos " + minPos + ". maxPos " + maxPos);
     }
 
