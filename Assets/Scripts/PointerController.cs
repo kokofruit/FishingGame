@@ -28,4 +28,12 @@ public class PointerController : MonoBehaviour
         // Set the pointer's position
         transform.localPosition = new Vector2(xPosition, 0);
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Target"))
+        {
+            print("hitting! slaying! serving cunt!");
+        } 
+    }
 }
