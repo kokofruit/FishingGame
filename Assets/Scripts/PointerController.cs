@@ -29,11 +29,21 @@ public class PointerController : MonoBehaviour
         transform.localPosition = new Vector2(xPosition, 0);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collision.gameObject.CompareTag("Target"))
+        if (collider.gameObject.CompareTag("Target"))
         {
             print("hitting! slaying! serving cunt!");
+            CompletionController.instance.SetGaining(true);
         } 
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("Target"))
+        {
+            print("losing! flopping! giving nothing!");
+            CompletionController.instance.SetGaining(false);
+        }
     }
 }
