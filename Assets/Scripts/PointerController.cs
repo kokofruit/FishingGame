@@ -8,14 +8,21 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PointerController : MonoBehaviour
 {
+    // Public
+    // The singleton instance of the controller
     public static PointerController instance;
+    
+    // Private
+    // The moving speed of the pointer
     [SerializeField] float pointerMoveSpeed;
 
+    // Set the instance
     void Awake()
     {
         instance = this;
     }
 
+    // Move the pointer towards a position
     public void MovePointer(float position)
     {
         // Clamp the position
@@ -29,6 +36,7 @@ public class PointerController : MonoBehaviour
         transform.localPosition = new Vector2(xPosition, 0);
     }
 
+    // If the pointer is in the target, set the progress bar to increase
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.CompareTag("Target"))
@@ -38,6 +46,7 @@ public class PointerController : MonoBehaviour
         } 
     }
 
+    // If the pointer is in the target, set the progress bar to decrease
     private void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.gameObject.CompareTag("Target"))

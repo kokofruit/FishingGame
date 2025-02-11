@@ -27,6 +27,7 @@ public class ReelController : MonoBehaviour
         PointerController.instance.MovePointer(speed / maxTurnSpeed);
     }
 
+    // Rotate the reel towards the mouse and calculate the rotation speed
     float RotateReel()
     {
         // Find the mouse's position in the world
