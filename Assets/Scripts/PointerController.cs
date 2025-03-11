@@ -26,7 +26,6 @@ public class PointerController : MonoBehaviour
     public void MovePointer(float position)
     {
         // Clamp the position
-        //float cPosition = Mathf.Clamp(position, 0, maxTurnSpeed);
         float cPosition = Mathf.Clamp01(position);
         // Find the placement along the range bar
         float rPosition = cPosition - 0.5f;
@@ -41,7 +40,6 @@ public class PointerController : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Target"))
         {
-            print("hitting! slaying! serving cunt!");
             CompletionController.instance.SetGaining(true);
         } 
     }
@@ -51,7 +49,6 @@ public class PointerController : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Target"))
         {
-            print("losing! flopping! giving nothing!");
             CompletionController.instance.SetGaining(false);
         }
     }

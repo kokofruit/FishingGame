@@ -22,14 +22,28 @@ public class TargetController : MonoBehaviour
     [SerializeField] float idleTimer;
     [SerializeField] float idleDuration;
 
-    [SerializeField] Vector2 destination;
+    Vector2 destination;
 
     [SerializeField] float targetMoveSpeed;
+
+    private int bugDifficulty;
 
     // Set the instance
     void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        SetDifficulty(10);
+    }
+
+    private void SetDifficulty(int difficulty)
+    {
+        bugDifficulty = difficulty;
+        targetMoveSpeed = 0.125f * difficulty + 0.25f;
+        idleTimer = idleDuration = -0.175f * difficulty + 3f;
     }
 
     private void FixedUpdate()
@@ -51,12 +65,25 @@ public class TargetController : MonoBehaviour
         }
     }
 
+    bool GetInstantMove()
+    {
+        // lower level bugs cannot instantly move
+        if (bugDifficulty < 5) return false;
+
+        // use a random number to decide
+        // lvl 5: 10% chance
+        // lvl 10: 30% chance
+        float randomChance = Random.Range(0f, 100f);
+        float decidingFactor = 4 * bugDifficulty - 10;
+        return (randomChance <= bugDifficulty);
+    }
+
     void DoIdle()
     {
         // if the target has idled long enough, decide a new location to move to
         if (idleTimer <= 0f)
         {
-            idleTimer = idleDuration;
+            idleTimer = GetInstantMove() ? 0f : (idleDuration * Random.Range(0.5f, 1.5f));
             targetState = TargetStates.deciding;
         }
         // otherwise decrease timer
