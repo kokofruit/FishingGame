@@ -34,6 +34,7 @@ public class TargetController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // state machine
         switch (targetState)
         {
             case TargetStates.idling:
@@ -52,35 +53,43 @@ public class TargetController : MonoBehaviour
 
     void DoIdle()
     {
-        if (idleTimer >= idleDuration)
+        // if the target has idled long enough, decide a new location to move to
+        if (idleTimer <= 0f)
         {
+            idleTimer = idleDuration;
             targetState = TargetStates.deciding;
-            idleTimer = 0f;
-            return;
         }
-        idleTimer += Time.deltaTime;
+        // otherwise decrease timer
+        else idleTimer -= Time.deltaTime;
     }
 
     void DoDecide()
     {
-        float xPos = Random.Range(0f, 1f);
-        print(xPos);
+        // find half of the width to subtract from movement range
+        float halfWidth = transform.localScale.x * 0.5f;
+        // generate a random number to set to local X
+        float xPos = Random.Range(0f + halfWidth, 1f - halfWidth);
+        // center x position in rangebar
         xPos -= 0.5f;
-        // TODO: allow for width 
+        // set the destination to a vector2 using xpos
         destination = new Vector2(xPos, 0f);
 
+        // change state
         targetState = TargetStates.moving;
     }
 
     void DoMove()
     {
+        // if the target has arrived at the destination, return to idling
         if ((Vector2)transform.localPosition == destination)
         {
             targetState = TargetStates.idling;
-            return;
         }
-
-        Vector2 pos = Vector2.MoveTowards(transform.localPosition, destination, targetMoveSpeed * Time.deltaTime);
-        transform.localPosition = pos;
+        // otherwise, move towards the destination
+        else
+        {
+            Vector2 pos = Vector2.MoveTowards(transform.localPosition, destination, targetMoveSpeed * Time.deltaTime);
+            transform.localPosition = pos;
+        }
     }
 }
