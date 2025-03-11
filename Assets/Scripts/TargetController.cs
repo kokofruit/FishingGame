@@ -44,6 +44,8 @@ public class TargetController : MonoBehaviour
         bugDifficulty = difficulty;
         targetMoveSpeed = 0.125f * difficulty + 0.25f;
         idleTimer = idleDuration = -0.175f * difficulty + 3f;
+        float localX = -0.015f * difficulty + 0.3f;
+        transform.localScale = new Vector3(localX, transform.localScale.y, transform.localScale.z);
     }
 
     private void FixedUpdate()
