@@ -7,19 +7,14 @@ using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
 
 public class PointerController : MonoBehaviour
-{
-    // Public
-    // The singleton instance of the controller
-    public static PointerController instance;
-    
+{   
     // Private
     // The moving speed of the pointer
     [SerializeField] float pointerMoveSpeed;
 
-    // Set the instance
-    void Awake()
+    private void Start()
     {
-        instance = this;
+        MiniGameManager.instance.movePointer += MovePointer;
     }
 
     // Move the pointer towards a position
@@ -36,20 +31,20 @@ public class PointerController : MonoBehaviour
     }
 
     // If the pointer is in the target, set the progress bar to increase
-    private void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.CompareTag("Target"))
         {
-            CompletionController.instance.SetGaining(true);
+            MiniGameManager.isGainingCompletion = true;
         } 
     }
 
     // If the pointer is in the target, set the progress bar to decrease
-    private void OnTriggerExit2D(Collider2D collider)
+    void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.gameObject.CompareTag("Target"))
         {
-            CompletionController.instance.SetGaining(false);
+            MiniGameManager.isGainingCompletion = false;
         }
     }
 }

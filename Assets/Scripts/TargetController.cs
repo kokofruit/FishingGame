@@ -36,7 +36,7 @@ public class TargetController : MonoBehaviour
 
     private void Start()
     {
-        SetDifficulty(10);
+        SetDifficulty(3);
     }
 
     private void SetDifficulty(int difficulty)
