@@ -66,17 +66,13 @@ public class MiniGameManager : MonoBehaviour
         {
             currentScreen = LoseScreen;
         }
-        currentScreen.alpha = 1f;
-        currentScreen.interactable = true;
-        currentScreen.blocksRaycasts = true;
+        currentScreen.gameObject.SetActive(true);
     }
 
     // Close win or lose screen
     public void CloseScreen()
     {
-        currentScreen.alpha = 0f;
-        currentScreen.interactable = false;
-        currentScreen.blocksRaycasts = false;
+        currentScreen.gameObject.SetActive(false);
         currentScreen = null;
     }
 

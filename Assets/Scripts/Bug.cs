@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Objects/Bug")]
 public class Bug : ScriptableObject
 {
-    public Sprite sprite;
+    public Mesh mesh;
 }
