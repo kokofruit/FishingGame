@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,11 +11,13 @@ public class MiniGameManager : MonoBehaviour
             // SERIALIZED //
     // The prefab used to make a minigame instance
     [SerializeField] GameObject miniGamePrefab;
+    // Screens to turn on and off
     [SerializeField] CanvasGroup loseScreen;
     [SerializeField] CanvasGroup winScreen;
     [SerializeField] CanvasGroup castScreen;
+    [SerializeField] CanvasGroup waitScreen;
 
-            // PRIVATE //
+    // PRIVATE //
     // The current instance of a minigame, null if there is none
     GameObject mgInstance = null;
     // The current screen, win or lose, null if none
@@ -48,13 +49,22 @@ public class MiniGameManager : MonoBehaviour
 
     public void Cast()
     {
-        SetScreen(null);
+        SetScreen(waitScreen);
+        StartCoroutine("WaitForBite");
+    }
+
+    IEnumerator WaitForBite()
+    {
+        print("run");
+        float waitDuration = Random.Range(1f, 6f);
+        yield return new WaitForSeconds(waitDuration);
         StartMiniGame();
     }
 
     // Start a new fishing minigame
     void StartMiniGame()
     {
+        SetScreen(null);
         mgInstance = Instantiate(miniGamePrefab);
     }
 
