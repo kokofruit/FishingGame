@@ -9,6 +9,8 @@ public class CompletionController : MonoBehaviour
     [SerializeField] float loseSpeed;
     // The sprite mask
     SpriteMask mask;
+    // If the player is making progress towards the catch (if pointer in target)
+    bool isGaining;
 
     // Initialize variables
     void Start()
@@ -20,7 +22,7 @@ public class CompletionController : MonoBehaviour
     void Update()
     {
         // If the status is gaining, remove more of the sprite mask
-        if (MiniGameManager.isGainingCompletion)
+        if (isGaining)
         {
             mask.alphaCutoff -= gainSpeed * Time.deltaTime;
 
@@ -35,5 +37,10 @@ public class CompletionController : MonoBehaviour
             // If the mask is completely there, lose the fish
             if (mask.alphaCutoff >= 1) MiniGameManager.instance.EndMiniGame(false);
         }
+    }
+
+    public void SetGaining(bool value)
+    {
+        isGaining = value;
     }
 }

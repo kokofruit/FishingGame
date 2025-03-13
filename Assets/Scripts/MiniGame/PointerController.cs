@@ -11,11 +11,7 @@ public class PointerController : MonoBehaviour
     // Private
     // The moving speed of the pointer
     [SerializeField] float pointerMoveSpeed;
-
-    private void Start()
-    {
-        MiniGameManager.instance.movePointer += MovePointer;
-    }
+    [SerializeField] CompletionController completionController;
 
     // Move the pointer towards a position
     public void MovePointer(float position)
@@ -35,7 +31,7 @@ public class PointerController : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Target"))
         {
-            MiniGameManager.isGainingCompletion = true;
+            completionController.SetGaining(true);
         } 
     }
 
@@ -44,7 +40,7 @@ public class PointerController : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Target"))
         {
-            MiniGameManager.isGainingCompletion = false;
+            completionController.SetGaining(false);
         }
     }
 }

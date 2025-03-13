@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxTurnSpeed: 750
+  pointerController: {fileID: 8764336861060556089}
 --- !u!1 &6176220695224398730
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,3 +796,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointerMoveSpeed: 0.5
+  completionController: {fileID: 7900386770940877529}

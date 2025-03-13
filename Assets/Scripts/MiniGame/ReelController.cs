@@ -7,6 +7,7 @@ public class ReelController : MonoBehaviour
         // Serialized variables //
     // The maximum output turning speed
     [SerializeField] float maxTurnSpeed;
+    [SerializeField] PointerController pointerController;
 
         // Private variables //
     // The main camera of the scene
@@ -24,8 +25,8 @@ public class ReelController : MonoBehaviour
         // Rotate the reel to the mouse and calculate the rotation speed
         float speed = RotateReel();
         //float speed = MeasureSpeed();
-        //PointerController.instance.MovePointer(speed / maxTurnSpeed);
-        MiniGameManager.instance.UpdatePointer(speed / maxTurnSpeed);
+        pointerController.MovePointer(speed / maxTurnSpeed);
+        //MiniGameManager.instance.UpdatePointer(speed / maxTurnSpeed);
     }
 
     // Rotate the reel towards the mouse and calculate the rotation speed
