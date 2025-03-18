@@ -2,16 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReelController : MonoBehaviour
+public class ReelManager : MonoBehaviour
 {
+    public static ReelManager instance;
+
         // Serialized variables //
     // The maximum output turning speed
     [SerializeField] float maxTurnSpeed;
-    [SerializeField] PointerController pointerController;
 
         // Private variables //
     // The main camera of the scene
     Camera cam;
+
+    // Set the singleton instance
+    void Awake()
+    {
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
+    }
 
     // Initialize variables
     private void Start()
@@ -25,7 +34,7 @@ public class ReelController : MonoBehaviour
         // Rotate the reel to the mouse and calculate the rotation speed
         float speed = RotateReel();
         //float speed = MeasureSpeed();
-        pointerController.MovePointer(speed / maxTurnSpeed);
+        PointerManager.instance.MovePointer(speed / maxTurnSpeed);
         //MiniGameManager.instance.UpdatePointer(speed / maxTurnSpeed);
     }
 

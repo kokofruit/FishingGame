@@ -2,29 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiniGameManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
             // PUBLIC //
     // The singleton instance of the controller
-    public static MiniGameManager instance;
+    public static GameManager instance;
+    public delegate void ResetMiniGame();
+    public event ResetMiniGame resetMiniGame;
 
             // SERIALIZED //
-    // The prefab used to make a minigame instance
-    [SerializeField] GameObject miniGamePrefab;
     // Screens to turn on and off
+    [SerializeField] CanvasGroup miniGameScreen;
     [SerializeField] CanvasGroup loseScreen;
     [SerializeField] CanvasGroup winScreen;
     [SerializeField] CanvasGroup castScreen;
     [SerializeField] CanvasGroup waitScreen;
+    // list of all bugs
+    [SerializeField] List<Bug> bugList;
 
-    // PRIVATE //
-    // The current instance of a minigame, null if there is none
-    GameObject mgInstance = null;
+            // PRIVATE //
     // The current screen, win or lose, null if none
     CanvasGroup currentScreen;
+    // The bug being fished for currently
+    Bug currentBug;
 
     
-    private void Awake()
+    void Awake()
     {
         // Set the singleton instance
         if (instance == null) instance = this;
@@ -47,6 +50,7 @@ public class MiniGameManager : MonoBehaviour
         if (currentScreen != null) currentScreen.gameObject.SetActive(true);
     }
 
+    #region CASTING
     public void Cast()
     {
         SetScreen(waitScreen);
@@ -55,30 +59,45 @@ public class MiniGameManager : MonoBehaviour
 
     IEnumerator WaitForBite()
     {
-        print("run");
         float waitDuration = Random.Range(1f, 6f);
         yield return new WaitForSeconds(waitDuration);
         StartMiniGame();
     }
 
+    #endregion
+
+    #region MINIGAME
+
+    // Choose bug
+    void ChooseBug()
+    {
+        int bIndex = Random.Range(0, bugList.Count);
+        currentBug = bugList[bIndex];
+        TargetManager.instance.SetDifficulty(currentBug.difficulty);
+    }
+
     // Start a new fishing minigame
     void StartMiniGame()
     {
-        SetScreen(null);
-        mgInstance = Instantiate(miniGamePrefab);
+        SetScreen(miniGameScreen);
+        ChooseBug();
+        resetMiniGame?.Invoke();
     }
 
     // End a fishing minigame
-    public void EndMiniGame(bool bugGained)
+    public void WinMiniGame()
     {
-        // destroy the minigame
-        Destroy(mgInstance);
-        mgInstance = null;
-        // set the screen to the win screen or lose screen
-        SetScreen(bugGained ? winScreen : loseScreen);
+        SetScreen(winScreen);
+        WinScreenManager.instance.UnpackBug(currentBug);
+    }
+    public void LoseMiniGame()
+    {
+        SetScreen(loseScreen);
     }
 
-    public void ExitWinLoseScreen()
+    #endregion
+
+    public void SetCastScreen()
     {
         SetScreen(castScreen);
     }

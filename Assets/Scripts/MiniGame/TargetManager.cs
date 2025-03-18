@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TargetController : MonoBehaviour
+public class TargetManager : MonoBehaviour
 {
     // Public
     // The singleton instance of the controller
-    public static TargetController instance;
+    public static TargetManager instance;
 
     // Private
     
@@ -28,18 +28,25 @@ public class TargetController : MonoBehaviour
 
     private int bugDifficulty;
 
-    // Set the instance
+    // Set the singleton instance
     void Awake()
     {
-        instance = this;
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
     {
-        SetDifficulty(3);
+        GameManager.instance.resetMiniGame += ResetTarget;
     }
 
-    private void SetDifficulty(int difficulty)
+    private void ResetTarget()
+    {
+        transform.localPosition = new Vector3(0f, 0f, 0f);
+    }
+
+    public void SetDifficulty(int difficulty)
     {
         bugDifficulty = difficulty;
         targetMoveSpeed = 0.125f * difficulty + 0.25f;

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CompletionController : MonoBehaviour
+public class CompletionManager : MonoBehaviour
 {
+    public static CompletionManager instance;
     // The gaining and losing speeds of the progress bar
     [SerializeField] float gainSpeed;
     [SerializeField] float loseSpeed;
@@ -12,10 +13,25 @@ public class CompletionController : MonoBehaviour
     // If the player is making progress towards the catch (if pointer in target)
     bool isGaining;
 
+    // Set the singleton instance
+    void Awake()
+    {
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
+    }
+
     // Initialize variables
     void Start()
     {
         mask = GetComponent<SpriteMask>();
+        GameManager.instance.resetMiniGame += ResetCompletion;
+    }
+
+    void ResetCompletion()
+    {
+        mask.alphaCutoff = 0.66f;
+        isGaining = false;
     }
 
     // Update is called once per frame
@@ -27,7 +43,7 @@ public class CompletionController : MonoBehaviour
             mask.alphaCutoff -= gainSpeed * Time.deltaTime;
 
             // If the mask is completely gone, win the fish
-            if (mask.alphaCutoff <= 0) MiniGameManager.instance.EndMiniGame(true);
+            if (mask.alphaCutoff <= 0) GameManager.instance.WinMiniGame();
         }
         // Otherwise, add back more of the sprite mask
         else
@@ -35,7 +51,7 @@ public class CompletionController : MonoBehaviour
             mask.alphaCutoff += loseSpeed * Time.deltaTime;
 
             // If the mask is completely there, lose the fish
-            if (mask.alphaCutoff >= 1) MiniGameManager.instance.EndMiniGame(false);
+            if (mask.alphaCutoff >= 1) GameManager.instance.LoseMiniGame();
         }
     }
 

@@ -6,12 +6,31 @@ using UnityEngine.UIElements;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
 
-public class PointerController : MonoBehaviour
-{   
+public class PointerManager : MonoBehaviour
+{
+    // public
+    public static PointerManager instance;
     // Private
     // The moving speed of the pointer
     [SerializeField] float pointerMoveSpeed;
-    [SerializeField] CompletionController completionController;
+
+    // Set the singleton instance
+    void Awake()
+    {
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
+    {
+        GameManager.instance.resetMiniGame += ResetPointer;
+    }
+
+    void ResetPointer()
+    {
+        transform.localPosition = new Vector3(-0.5f, 0f, 0f);
+    }
 
     // Move the pointer towards a position
     public void MovePointer(float position)
@@ -31,7 +50,7 @@ public class PointerController : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Target"))
         {
-            completionController.SetGaining(true);
+            CompletionManager.instance.SetGaining(true);
         } 
     }
 
@@ -40,7 +59,7 @@ public class PointerController : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Target"))
         {
-            completionController.SetGaining(false);
+            CompletionManager.instance.SetGaining(false);
         }
     }
 }
