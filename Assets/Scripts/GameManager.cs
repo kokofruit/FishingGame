@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] CanvasGroup winScreen;
     [SerializeField] CanvasGroup castScreen;
     [SerializeField] CanvasGroup waitScreen;
+    [SerializeField] CanvasGroup shopScreen;
     // list of all bugs
     [SerializeField] List<Bug> bugList;
 
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        SetScreen(castScreen);
+        SetScreen(shopScreen);
     }
 
     void SetScreen(CanvasGroup screen)

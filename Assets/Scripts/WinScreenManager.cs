@@ -31,5 +31,8 @@ public class WinScreenManager : MonoBehaviour
 
         if (spinContainer.transform.childCount != 0) Destroy(spinContainer.transform.GetChild(0));
         Instantiate(model, spinContainer.transform);
+
+        nameText.SetText(cName);
+        descText.SetText(desc);
     }
 }
