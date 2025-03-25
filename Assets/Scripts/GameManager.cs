@@ -9,10 +9,12 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public delegate void ResetMiniGame();
     public event ResetMiniGame resetMiniGame;
-    public List<Bug> inventory;
+    public List<Bug> inventory = new();
+    public float money;
 
             // SERIALIZED //
     // Screens to turn on and off
+    [Header("Screens")]
     [SerializeField] CanvasGroup miniGameScreen;
     [SerializeField] CanvasGroup loseScreen;
     [SerializeField] CanvasGroup winScreen;
@@ -91,7 +93,10 @@ public class GameManager : MonoBehaviour
     {
         SetScreen(winScreen);
         WinScreenManager.instance.UnpackBug(currentBug);
-        inventory.Add(currentBug);
+        for (int i = 0; i < 20; i++)
+        {
+            inventory.Add(currentBug);
+        }
     }
     public void LoseMiniGame()
     {

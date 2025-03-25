@@ -15,7 +15,8 @@ public class TargetManager : MonoBehaviour
     {
         idling,
         deciding,
-        moving
+        moving,
+        nothing,
     }
     [SerializeField] TargetStates targetState = TargetStates.deciding;
 
@@ -36,14 +37,15 @@ public class TargetManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        GameManager.instance.resetMiniGame += ResetTarget;
-    }
-
-    private void ResetTarget()
+    void OnEnable()
     {
         transform.localPosition = new Vector3(0f, 0f, 0f);
+        targetState = TargetStates.deciding;
+    }
+
+    void OnDisable()
+    {
+        targetState = TargetStates.nothing;
     }
 
     public void SetDifficulty(int difficulty)

@@ -25,10 +25,9 @@ public class CompletionManager : MonoBehaviour
     void Start()
     {
         mask = GetComponent<SpriteMask>();
-        GameManager.instance.resetMiniGame += ResetCompletion;
     }
 
-    void ResetCompletion()
+    void OnDisable()
     {
         mask.alphaCutoff = 0.66f;
         isGaining = false;

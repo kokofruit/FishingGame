@@ -25,7 +25,8 @@ public class ShopListingController : MonoBehaviour
 
     void SellBug()
     {
-        print("dolla dolla bills");
+        GameManager.instance.money += storedBug.price;
+        print(GameManager.instance.money + " dolla dolla bills");
         ShopScreenManager.instance.RemoveListing(button);
     }
 }

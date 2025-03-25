@@ -22,12 +22,7 @@ public class PointerManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
-    {
-        GameManager.instance.resetMiniGame += ResetPointer;
-    }
-
-    void ResetPointer()
+    void OnDisable()
     {
         transform.localPosition = new Vector3(-0.5f, 0f, 0f);
     }
