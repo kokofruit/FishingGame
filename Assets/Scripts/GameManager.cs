@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public delegate void ResetMiniGame();
     public event ResetMiniGame resetMiniGame;
+    public List<Bug> inventory;
 
             // SERIALIZED //
     // Screens to turn on and off
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        SetScreen(shopScreen);
+        SetScreen(castScreen);
     }
 
     void SetScreen(CanvasGroup screen)
@@ -90,6 +91,7 @@ public class GameManager : MonoBehaviour
     {
         SetScreen(winScreen);
         WinScreenManager.instance.UnpackBug(currentBug);
+        inventory.Add(currentBug);
     }
     public void LoseMiniGame()
     {
@@ -101,6 +103,11 @@ public class GameManager : MonoBehaviour
     public void SetCastScreen()
     {
         SetScreen(castScreen);
+    }
+
+    public void SetShopScreen()
+    {
+        SetScreen(shopScreen);
     }
 
 }

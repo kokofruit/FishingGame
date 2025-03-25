@@ -18,20 +18,19 @@ public class WinScreenManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        //Instantiate(model, spinContainer.transform);
-    }
-
     public void UnpackBug(Bug bug)
     {
+        // gather values
         GameObject model = bug.model;
         string cName = bug.commonName;
         string desc = bug.description;
 
-        if (spinContainer.transform.childCount != 0) Destroy(spinContainer.transform.GetChild(0));
+        // remove model if there is one already
+        if (spinContainer.transform.childCount != 0) Destroy(spinContainer.transform.GetChild(0).gameObject);
+        // Create the spinning model
         Instantiate(model, spinContainer.transform);
 
+        // Set texts
         nameText.SetText(cName);
         descText.SetText(desc);
     }
