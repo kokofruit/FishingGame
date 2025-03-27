@@ -7,10 +7,13 @@ public class GameManager : MonoBehaviour
             // PUBLIC //
     // The singleton instance of the controller
     public static GameManager instance;
+    
     public delegate void ResetMiniGame();
     public event ResetMiniGame resetMiniGame;
+
     public List<Bug> inventory = new();
     public float money;
+    public List<Upgrade> upgrades = new();
 
             // SERIALIZED //
     // Screens to turn on and off
@@ -30,7 +33,7 @@ public class GameManager : MonoBehaviour
     // The bug being fished for currently
     Bug currentBug;
 
-    
+    #region UNITY BUILT-INS
     void Awake()
     {
         // Set the singleton instance
@@ -43,7 +46,9 @@ public class GameManager : MonoBehaviour
     {
         SetScreen(castScreen);
     }
+    #endregion
 
+    #region SET SCREENS
     void SetScreen(CanvasGroup screen)
     {
         // deactivate old screen
@@ -53,6 +58,16 @@ public class GameManager : MonoBehaviour
         // activate new screen if not null
         if (currentScreen != null) currentScreen.gameObject.SetActive(true);
     }
+    public void SetCastScreen()
+    {
+        SetScreen(castScreen);
+    }
+
+    public void SetShopScreen()
+    {
+        SetScreen(shopScreen);
+    }
+    #endregion
 
     #region CASTING
     public void Cast()
@@ -93,26 +108,14 @@ public class GameManager : MonoBehaviour
     {
         SetScreen(winScreen);
         WinScreenManager.instance.UnpackBug(currentBug);
-        for (int i = 0; i < 20; i++)
-        {
-            inventory.Add(currentBug);
-        }
+        inventory.Add(currentBug);
     }
+    
     public void LoseMiniGame()
     {
         SetScreen(loseScreen);
     }
 
     #endregion
-
-    public void SetCastScreen()
-    {
-        SetScreen(castScreen);
-    }
-
-    public void SetShopScreen()
-    {
-        SetScreen(shopScreen);
-    }
 
 }

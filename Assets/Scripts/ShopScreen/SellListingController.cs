@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopListingController : MonoBehaviour
+public class SellListingController : MonoBehaviour
 {
     Button button;
     Bug storedBug;
@@ -25,8 +25,13 @@ public class ShopListingController : MonoBehaviour
 
     void SellBug()
     {
+        // Get money
         GameManager.instance.money += storedBug.price;
         print(GameManager.instance.money + " dolla dolla bills");
+        
+        // Remove from inventory
+        GameManager.instance.inventory.Remove(storedBug);
+        // Remove listing
         ShopScreenManager.instance.RemoveListing(button);
     }
 }
