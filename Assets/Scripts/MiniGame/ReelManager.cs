@@ -19,7 +19,6 @@ public class ReelManager : MonoBehaviour
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
     }
 
     // Initialize variables

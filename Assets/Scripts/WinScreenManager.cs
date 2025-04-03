@@ -15,7 +15,6 @@ public class WinScreenManager : MonoBehaviour
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
     }
 
     public void UnpackBug(Bug bug)

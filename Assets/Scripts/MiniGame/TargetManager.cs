@@ -34,7 +34,6 @@ public class TargetManager : MonoBehaviour
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
     }
 
     void OnEnable()

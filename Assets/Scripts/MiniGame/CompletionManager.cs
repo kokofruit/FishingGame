@@ -12,46 +12,66 @@ public class CompletionManager : MonoBehaviour
     SpriteMask mask;
     // If the player is making progress towards the catch (if pointer in target)
     bool isGaining;
-
-    // Set the singleton instance
+    
     void Awake()
     {
+        // Set the singleton instance
         if (instance == null) instance = this;
         else Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
-    }
 
-    // Initialize variables
-    void Start()
-    {
+        // Cache components
         mask = GetComponent<SpriteMask>();
     }
 
     void OnDisable()
     {
-        mask.alphaCutoff = 0.66f;
-        isGaining = false;
+        StopAllCoroutines();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnEnable()
     {
-        // If the status is gaining, remove more of the sprite mask
-        if (isGaining)
-        {
-            mask.alphaCutoff -= gainSpeed * Time.deltaTime;
+        mask.alphaCutoff = 0.66f;
+        isGaining = false;
+        StartCoroutine("GracePeriod");
+    }
 
-            // If the mask is completely gone, win the fish
-            if (mask.alphaCutoff <= 0) GameManager.instance.WinMiniGame();
-        }
-        // Otherwise, add back more of the sprite mask
-        else
-        {
-            mask.alphaCutoff += loseSpeed * Time.deltaTime;
+    IEnumerator GracePeriod()
+    {
+        yield return new WaitForSeconds(1.5f);
+        StartCoroutine("UpdateCompletion");
+    }
 
-            // If the mask is completely there, lose the fish
-            if (mask.alphaCutoff >= 1) GameManager.instance.LoseMiniGame();
+    IEnumerator UpdateCompletion()
+    {
+        while (true)
+        {
+            // If the status is gaining, remove more of the sprite mask
+            if (isGaining)
+            {
+                mask.alphaCutoff -= gainSpeed * Time.deltaTime;
+
+                // If the mask is completely gone, win the fish
+                if (mask.alphaCutoff <= 0)
+                {
+                    GameManager.instance.WinMiniGame();
+                    break;
+                }
+            }
+            // Otherwise, add back more of the sprite mask
+            else
+            {
+                mask.alphaCutoff += loseSpeed * Time.deltaTime;
+
+                // If the mask is completely there, lose the fish
+                if (mask.alphaCutoff >= 1)
+                {
+                    GameManager.instance.LoseMiniGame();
+                    break;
+                }
+            }
+            yield return new WaitForSeconds(Time.deltaTime);
         }
+        yield return null;
     }
 
     public void SetGaining(bool value)
