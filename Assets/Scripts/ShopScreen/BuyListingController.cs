@@ -6,11 +6,14 @@ using UnityEngine.UI;
 
 public class BuyListingController : MonoBehaviour
 {
+    [SerializeField] TMP_Text nameText;
+    [SerializeField] TMP_Text descText;
+    [SerializeField] TMP_Text costText;
+
     Button listing;
     Upgrade storedUpgrade;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         listing = GetComponent<Button>();
         listing.onClick.AddListener(BuyUpgrade);
@@ -19,20 +22,29 @@ public class BuyListingController : MonoBehaviour
     public void SetUpgrade(Upgrade upgrade)
     {
         storedUpgrade = upgrade;
-        GetComponentInChildren<TMP_Text>().SetText("Upgrade:" + upgrade.upgradeName + ", Lvl: " + upgrade.level);
-        // TODO
+        
+        nameText.SetText(upgrade.displayName + ": Lvl " + upgrade.userLevel);
+        descText.SetText(upgrade.description);
+
+        if (UpgradeManager.instance.IsUpgradeMax(upgrade))
+        {
+            costText.SetText("max");
+            listing.interactable = false;
+        }
+        else costText.SetText("$" + UpgradeManager.instance.GetUpgradeCost(upgrade));
+
     }
 
     void BuyUpgrade(){
 
         // if upgrade is max level
-        if (storedUpgrade.level == storedUpgrade.costs.Length){
-            print("max level, can't upgrade");
-            return;
-        }  
+        // if (storedUpgrade.userLevel == storedUpgrade.maxLevel){
+        //     print("max level, can't upgrade");
+        //     return;
+        // }  
 
         // cost of the upgrade at the current level
-        int upgradeCost = storedUpgrade.costs[storedUpgrade.level];
+        int upgradeCost = UpgradeManager.instance.GetUpgradeCost(storedUpgrade);
 
         // if player cannot afford it
         if (GameManager.instance.money < upgradeCost){
@@ -43,7 +55,7 @@ public class BuyListingController : MonoBehaviour
         // subtract money
         GameManager.instance.money -= upgradeCost;
         // increase level
-        storedUpgrade.level += 1;
+        storedUpgrade.userLevel += 1;
         // update listing
         SetUpgrade(storedUpgrade);
     

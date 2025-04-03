@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
 
     public List<Bug> inventory = new();
     public float money;
-    public List<Upgrade> upgrades = new();
 
             // SERIALIZED //
     // Screens to turn on and off
@@ -78,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitForBite()
     {
-        float waitDuration = Random.Range(1f, 6f);
+        float waitDuration = Random.Range(2f, 5f) * UpgradeManager.instance.GetUpgradeEffect("cspeed");
         yield return new WaitForSeconds(waitDuration);
         StartMiniGame();
     }

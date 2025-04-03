@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57b968af8abbce45a8bb5dd5f5b82ae, type: 3}
   m_Name: CastingSpeed
   m_EditorClassIdentifier: 
-  upgradeName: Casting Speed
-  level: 1
-  costs: 01000000020000000300000004000000
+  displayName: Lure Quality
+  description: Catch bugs quicker!
+  internalName: cspeed
+  maxLevel: 4
+  costs: 0100000002000000030000000400000005000000
+  effects:
+  - 1
+  - 0.75
+  - 0.5
+  - 0.25
+  - 0
+  userLevel: 0

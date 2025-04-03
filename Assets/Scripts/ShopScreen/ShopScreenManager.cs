@@ -76,7 +76,7 @@ public class ShopScreenManager : MonoBehaviour
         int yVal = -25;
 
         // Create button listings based off bugs in inventory
-        foreach (Upgrade upgrade in GameManager.instance.upgrades)
+        foreach (Upgrade upgrade in UpgradeManager.instance.upgrades)
         // for (int i = 0; i < 10; i++)
         {
             // Instantiate
