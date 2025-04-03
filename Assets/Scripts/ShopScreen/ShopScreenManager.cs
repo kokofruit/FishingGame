@@ -16,9 +16,11 @@ public class ShopScreenManager : MonoBehaviour
     [SerializeField] Button buyButton;
     [SerializeField] Button sellButton;
 
-    bool isBuyScreen = true;
-
     List<Button> listings = new();
+
+    Image buyButtonImage;
+    Image sellButtonImage;
+    Color buttonOverlay = new(0.8f, 0.8f, 0.8f);
 
     #region UNITY BUILT-INS
     void Awake()
@@ -26,20 +28,15 @@ public class ShopScreenManager : MonoBehaviour
         // Set the singleton instance
         if (instance == null) instance = this;
         else Destroy(gameObject);
-    }
 
-    void Start()
-    {
-        buyButton.onClick.AddListener(SetBuyScreen);
-        sellButton.onClick.AddListener(SetSellScreen);
-
-        buyButton.Select();
+        // Cache components
+        buyButtonImage = buyButton.GetComponent<Image>();
+        sellButtonImage = sellButton.GetComponent<Image>();
     }
 
     void OnEnable()
     {
-        if (isBuyScreen) SetBuyScreen();
-        else SetSellScreen();
+        SetBuyScreen();
     }
 
     void OnDisable()
@@ -50,14 +47,20 @@ public class ShopScreenManager : MonoBehaviour
 
     #region MENU MANAGEMENT
 
-    public void SetBuyScreen(){
-        isBuyScreen = true;
+    public void SetBuyScreen()
+    {
+        buyButtonImage.color = Color.white;
+        sellButtonImage.color = buttonOverlay;
+
         ClearListings();
         PropagateBuyListings();
     }
 
-    public void SetSellScreen(){
-        isBuyScreen = false;
+    public void SetSellScreen()
+    {
+        buyButtonImage.color = buttonOverlay;
+        sellButtonImage.color = Color.white;
+
         ClearListings();
         PropagateSellListings();
     }
