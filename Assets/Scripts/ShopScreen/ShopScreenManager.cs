@@ -10,8 +10,13 @@ public class ShopScreenManager : MonoBehaviour
 
     [SerializeField] RectTransform scrollViewContent;
 
-    [SerializeField] Button sellListingPrefab;
     [SerializeField] Button buyListingPrefab;
+    [SerializeField] Button sellListingPrefab;
+
+    [SerializeField] Button buyButton;
+    [SerializeField] Button sellButton;
+
+    bool isBuyScreen = true;
 
     List<Button> listings = new();
 
@@ -24,10 +29,18 @@ public class ShopScreenManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    void Start()
+    {
+        buyButton.onClick.AddListener(SetBuyScreen);
+        sellButton.onClick.AddListener(SetSellScreen);
+
+        buyButton.Select();
+    }
+
     void OnEnable()
     {
-        // PropagateSellListings();
-        PropagateBuyListings();
+        if (isBuyScreen) SetBuyScreen();
+        else SetSellScreen();
     }
 
     void OnDisable()
@@ -39,11 +52,13 @@ public class ShopScreenManager : MonoBehaviour
     #region MENU MANAGEMENT
 
     public void SetBuyScreen(){
+        isBuyScreen = true;
         ClearListings();
         PropagateBuyListings();
     }
 
     public void SetSellScreen(){
+        isBuyScreen = false;
         ClearListings();
         PropagateSellListings();
     }
