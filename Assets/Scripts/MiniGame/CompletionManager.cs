@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CompletionManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class CompletionManager : MonoBehaviour
     [SerializeField] float gainSpeed;
     [SerializeField] float loseSpeed;
     // The sprite mask
-    SpriteMask mask;
+    Image maskImage;
     // If the player is making progress towards the catch (if pointer in target)
     bool isGaining;
     
@@ -20,7 +21,7 @@ public class CompletionManager : MonoBehaviour
         else Destroy(gameObject);
 
         // Cache components
-        mask = GetComponent<SpriteMask>();
+        maskImage = GetComponent<Image>();
     }
 
     void OnDisable()
@@ -30,7 +31,7 @@ public class CompletionManager : MonoBehaviour
 
     void OnEnable()
     {
-        mask.alphaCutoff = 0.66f;
+        maskImage.fillAmount = 0.25f;
         isGaining = false;
         StartCoroutine("GracePeriod");
     }
@@ -48,10 +49,10 @@ public class CompletionManager : MonoBehaviour
             // If the status is gaining, remove more of the sprite mask
             if (isGaining)
             {
-                mask.alphaCutoff -= gainSpeed * Time.deltaTime;
+                maskImage.fillAmount += gainSpeed * Time.deltaTime;
 
                 // If the mask is completely gone, win the fish
-                if (mask.alphaCutoff <= 0)
+                if (maskImage.fillAmount >= 1)
                 {
                     GameManager.instance.WinMiniGame();
                     break;
@@ -60,10 +61,10 @@ public class CompletionManager : MonoBehaviour
             // Otherwise, add back more of the sprite mask
             else
             {
-                mask.alphaCutoff += loseSpeed * Time.deltaTime;
+                maskImage.fillAmount -= gainSpeed * Time.deltaTime;
 
                 // If the mask is completely there, lose the fish
-                if (mask.alphaCutoff >= 1)
+                if (maskImage.fillAmount <= 0)
                 {
                     GameManager.instance.LoseMiniGame();
                     break;
