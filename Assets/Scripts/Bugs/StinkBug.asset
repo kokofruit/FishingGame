@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StinkBug
   m_EditorClassIdentifier: 
   commonName: Stink Bug
-  description: i fucking HATE this guy
+  description: i HATE this guy
   model: {fileID: 919132149155446097, guid: b6378335d80dbd04e8a06ae86e57dad0, type: 3}
   difficulty: 0
   isCaught: 0

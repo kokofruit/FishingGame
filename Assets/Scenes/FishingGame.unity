@@ -1693,7 +1693,7 @@ GameObject:
   - component: {fileID: 721005286}
   - component: {fileID: 721005289}
   - component: {fileID: 721005288}
-  - component: {fileID: 721005287}
+  - component: {fileID: 721005290}
   m_Layer: 5
   m_Name: ElipseMask
   m_TagString: Untagged
@@ -1721,27 +1721,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -298}
   m_SizeDelta: {x: 375, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &721005287
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721005285}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b4080beab553cdf4cbd038001f6b7e9b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &721005288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1764,6 +1743,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 721005285}
   m_CullTransparentMesh: 1
+--- !u!114 &721005290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721005285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1e5f9a063f626d44abbe404995b106b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &757447865
 GameObject:
   m_ObjectHideFlags: 0
@@ -2455,7 +2446,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1227513359}
-  - component: {fileID: 1227513362}
   - component: {fileID: 1227513361}
   - component: {fileID: 1227513360}
   m_Layer: 0
@@ -2522,20 +2512,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1227513358}
   m_CullTransparentMesh: 1
---- !u!114 &1227513362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1227513358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cef467412f1816429d4866f54940e0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gainSpeed: 0.25
-  loseSpeed: 0.15
 --- !u!1 &1244565636
 GameObject:
   m_ObjectHideFlags: 0
