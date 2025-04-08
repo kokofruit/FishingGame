@@ -7,12 +7,13 @@ public class Bug : ScriptableObject
 {
     [Header("Display Data")]
     public string commonName;
+    public string catchPhrase;
     [TextArea]
     public string description;
     public GameObject model;
 
     [Header("Internal Data")]
     public int difficulty;
-    public bool isCaught;
+    public bool isDiscovered;
     public int price;
 }

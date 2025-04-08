@@ -108,6 +108,8 @@ public class GameManager : MonoBehaviour
         SetScreen(winScreen);
         WinScreenManager.instance.UnpackBug(currentBug);
         inventory.Add(currentBug);
+        // set bug as discovered
+        currentBug.isDiscovered = true; 
     }
     
     public void LoseMiniGame()

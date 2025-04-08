@@ -6,9 +6,10 @@ using UnityEngine;
 public class WinScreenManager : MonoBehaviour
 {
     public static WinScreenManager instance;
-    [SerializeField] GameObject spinContainer;
+    [SerializeField] Transform spinContainer;
     [SerializeField] TMP_Text nameText;
-    [SerializeField] TMP_Text descText;
+    [SerializeField] TMP_Text catchPhraseText;
+    [SerializeField] GameObject newStar;
 
     // Set the singleton instance
     void Awake()
@@ -17,20 +18,43 @@ public class WinScreenManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    void OnEnable()
+    {
+        StartCoroutine("SpinModel");
+    }
+
+    void OnDisable()
+    {
+        // Stop spinning
+        StopAllCoroutines();
+        
+        // remove model if there is one already
+        foreach (Transform child in spinContainer)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
     public void UnpackBug(Bug bug)
     {
-        // gather values
-        GameObject model = bug.model;
-        string cName = bug.commonName;
-        string desc = bug.description;
-
-        // remove model if there is one already
-        if (spinContainer.transform.childCount != 0) Destroy(spinContainer.transform.GetChild(0).gameObject);
         // Create the spinning model
-        Instantiate(model, spinContainer.transform);
+        Instantiate(bug.model, spinContainer);
 
         // Set texts
-        nameText.SetText(cName);
-        descText.SetText(desc);
+        nameText.SetText(bug.commonName);
+        catchPhraseText.SetText(bug.catchPhrase);
+
+        // Show or hide new star
+        newStar.SetActive(!bug.isDiscovered);
+    }
+
+    IEnumerator SpinModel()
+    {
+        spinContainer.rotation = Quaternion.identity;
+        while (true)
+        {
+            spinContainer.Rotate(new Vector3(0f, 36 * Time.deltaTime, 0f));
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
     }
 }
