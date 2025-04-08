@@ -3562,6 +3562,7 @@ MonoBehaviour:
   shopScreen: {fileID: 1873307947}
   bugList:
   - {fileID: 11400000, guid: f209804102a927f47868c9988188d922, type: 2}
+  - {fileID: 11400000, guid: ce9ae444547b46647aae691513cae3ad, type: 2}
 --- !u!1 &1520840715
 GameObject:
   m_ObjectHideFlags: 0
@@ -4209,7 +4210,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 1000, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1673568972
 MonoBehaviour:

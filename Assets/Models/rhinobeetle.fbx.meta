@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b6378335d80dbd04e8a06ae86e57dad0
+guid: 8240e2dbae7eee5489e3321d126d592a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: stinkbug
-    second: {fileID: 2100000, guid: 8357a4d20953c5449b0193bb7fa3cb3a, type: 2}
+      name: rhinobeetle
+    second: {fileID: 2100000, guid: 19425b93c0d0dae4298f4a2cf93737f7, type: 2}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
-      name: stinkbug
-    second: {fileID: 2800000, guid: 24313584c5706724e9737ddcf2bf4179, type: 3}
+      name: rhinobeetle
+    second: {fileID: 2800000, guid: 24fab606989e3574288aa71c6c15a8bb, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
