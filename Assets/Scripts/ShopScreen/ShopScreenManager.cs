@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,8 @@ public class ShopScreenManager : MonoBehaviour
 
     [SerializeField] Button buyButton;
     [SerializeField] Button sellButton;
+
+    [SerializeField] TMP_Text moneyText;
 
     List<Button> listings = new();
 
@@ -37,6 +40,7 @@ public class ShopScreenManager : MonoBehaviour
     void OnEnable()
     {
         SetBuyScreen();
+        UpdateMoney();
     }
 
     void OnDisable()
@@ -153,4 +157,9 @@ public class ShopScreenManager : MonoBehaviour
         Destroy(listing.gameObject);
     }
     #endregion
+
+    public void UpdateMoney()
+    {
+        moneyText.SetText("$ " + GameManager.instance.money);
+    }
 }

@@ -21,11 +21,14 @@ public class BuyListingController : MonoBehaviour
 
     public void SetUpgrade(Upgrade upgrade)
     {
+        // set the associated upgrade
         storedUpgrade = upgrade;
         
+        // set the visual components
         nameText.SetText(upgrade.displayName + ": Lvl " + upgrade.userLevel);
         descText.SetText(upgrade.description);
 
+        // disable maxxed out upgrades
         if (UpgradeManager.instance.IsUpgradeMax(upgrade))
         {
             costText.SetText("max");
@@ -36,12 +39,6 @@ public class BuyListingController : MonoBehaviour
     }
 
     void BuyUpgrade(){
-
-        // if upgrade is max level
-        // if (storedUpgrade.userLevel == storedUpgrade.maxLevel){
-        //     print("max level, can't upgrade");
-        //     return;
-        // }  
 
         // cost of the upgrade at the current level
         int upgradeCost = UpgradeManager.instance.GetUpgradeCost(storedUpgrade);
@@ -58,6 +55,9 @@ public class BuyListingController : MonoBehaviour
         storedUpgrade.userLevel += 1;
         // update listing
         SetUpgrade(storedUpgrade);
+
+        // Update money display
+        ShopScreenManager.instance.UpdateMoney();
     
     }
 }

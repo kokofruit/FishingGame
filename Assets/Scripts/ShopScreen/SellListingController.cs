@@ -6,7 +6,16 @@ using UnityEngine.UI;
 
 public class SellListingController : MonoBehaviour
 {
+    // Serialized
+    // the text that displays the name of the bug
+    [SerializeField] TMP_Text nameText;
+    // the text that displays the price of the bug
+    [SerializeField] TMP_Text priceText;
+
+    // Private
+    // the button component of the entire listing
     Button button;
+    // the bug associated with the listing
     Bug storedBug;
 
     // Start is called before the first frame update
@@ -18,9 +27,11 @@ public class SellListingController : MonoBehaviour
 
     public void SetBug(Bug bug)
     {
+        // Set the associated bug
         storedBug = bug;
-        GetComponentInChildren<TMP_Text>().SetText(bug.commonName);
-        // TODO
+        // Set visual components to match bug
+        nameText.SetText(bug.commonName);
+        priceText.SetText("$" + bug.price);
     }
 
     void SellBug()
@@ -33,5 +44,8 @@ public class SellListingController : MonoBehaviour
         GameManager.instance.inventory.Remove(storedBug);
         // Remove listing
         ShopScreenManager.instance.RemoveListing(button);
+
+        // Update money display
+        ShopScreenManager.instance.UpdateMoney();
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1218692726929535084}
   - component: {fileID: 5348734903517230117}
   m_Layer: 5
-  m_Name: BugListingDesc
+  m_Name: BuyListingDesc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 274467385647943846}
   - component: {fileID: 6272806661268705983}
   m_Layer: 5
-  m_Name: BugListingCost
+  m_Name: BuyListingCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -419,7 +419,7 @@ GameObject:
   - component: {fileID: 4717111635463951025}
   - component: {fileID: 727861942617361039}
   m_Layer: 5
-  m_Name: BugListingName
+  m_Name: BuyListingName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
