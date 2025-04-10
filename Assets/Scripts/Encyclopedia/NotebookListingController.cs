@@ -14,7 +14,8 @@ public class NotebookListingController : MonoBehaviour
     void Start()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(PullUpBug);
+        button.onClick.AddListener(OpenEntry);
+        SetBug(BugManager.instance.GetBug("Stink Bug"));
     }
 
     public void SetBug(Bug bug)
@@ -23,9 +24,9 @@ public class NotebookListingController : MonoBehaviour
         nameText.SetText(bug.commonName);
     }
 
-    void PullUpBug()
+    void OpenEntry()
     {
-        print(storedBug.commonName);
+        EncyclopediaScreenManager.instance.OpenEntry(storedBug);
     }
     
 }

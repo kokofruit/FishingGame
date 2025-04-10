@@ -10,8 +10,6 @@ public class GameManager : MonoBehaviour
     
     public delegate void ResetMiniGame();
     public event ResetMiniGame resetMiniGame;
-
-    public List<Bug> inventory = new();
     public float money;
 
             // SERIALIZED //
@@ -23,8 +21,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] CanvasGroup castScreen;
     [SerializeField] CanvasGroup waitScreen;
     [SerializeField] CanvasGroup shopScreen;
-    // list of all bugs
-    [SerializeField] List<Bug> bugList;
 
             // PRIVATE //
     // The current screen, win or lose, null if none
@@ -86,19 +82,13 @@ public class GameManager : MonoBehaviour
 
     #region MINIGAME
 
-    // Choose bug
-    void ChooseBug()
-    {
-        int bIndex = Random.Range(0, bugList.Count);
-        currentBug = bugList[bIndex];
-        TargetManager.instance.SetDifficulty(currentBug.difficulty);
-    }
-
     // Start a new fishing minigame
     void StartMiniGame()
     {
         SetScreen(miniGameScreen);
-        ChooseBug();
+        // choose a bug
+        currentBug = BugManager.instance.RandomBug();
+        TargetManager.instance.SetDifficulty(currentBug.difficulty);
         resetMiniGame?.Invoke();
     }
 
@@ -107,9 +97,7 @@ public class GameManager : MonoBehaviour
     {
         SetScreen(winScreen);
         WinScreenManager.instance.UnpackBug(currentBug);
-        inventory.Add(currentBug);
-        // set bug as discovered
-        currentBug.isDiscovered = true; 
+        BugManager.instance.CatchBug(currentBug);
     }
     
     public void LoseMiniGame()
