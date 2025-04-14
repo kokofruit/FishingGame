@@ -2874,6 +2874,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stinkbug
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b6378335d80dbd04e8a06ae86e57dad0, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3917,7 +3921,7 @@ RectTransform:
   m_GameObject: {fileID: 1432742579}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -293}
-  m_LocalScale: {x: 74.3, y: 74.3, z: 74.3}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1079598275}
@@ -4352,7 +4356,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allBugs:
   - {fileID: 11400000, guid: f209804102a927f47868c9988188d922, type: 2}
+  - {fileID: 11400000, guid: 3f8759e5fc6d6484d9d0e811f8821c63, type: 2}
+  - {fileID: 11400000, guid: bf56e7d0f314f75499fff6719049768f, type: 2}
+  - {fileID: 11400000, guid: aab74da9829f83441aeb151233022df6, type: 2}
+  - {fileID: 11400000, guid: 984484508e73f044690f8e8c516410a9, type: 2}
   - {fileID: 11400000, guid: ce9ae444547b46647aae691513cae3ad, type: 2}
+  - {fileID: 11400000, guid: aa96a531a186e4747a806a2406ca5082, type: 2}
+  - {fileID: 11400000, guid: 49f50e6e2971fcf4cbd78a9c4d02f511, type: 2}
+  - {fileID: 11400000, guid: 99e28af74d6ed014790c6c22f6fbb971, type: 2}
+  - {fileID: 11400000, guid: 999d46df916ee9c4da4b403d088f8846, type: 2}
   inventory: []
 --- !u!1 &1520840715
 GameObject:

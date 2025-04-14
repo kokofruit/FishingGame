@@ -15,7 +15,7 @@ MonoBehaviour:
   commonName: Grasshopper
   catchPhrase: 
   description: 
-  model: {fileID: 0}
+  model: {fileID: 919132149155446097, guid: 8f60d1c077dc3254ba509a5aec4b15e3, type: 3}
   difficulty: 7
-  isDiscovered: 0
+  isDiscovered: 1
   price: 0
