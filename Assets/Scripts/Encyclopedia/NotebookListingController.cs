@@ -15,7 +15,6 @@ public class NotebookListingController : MonoBehaviour
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(OpenEntry);
-        SetBug(BugManager.instance.GetBug("Stink Bug"));
     }
 
     public void SetBug(Bug bug)
