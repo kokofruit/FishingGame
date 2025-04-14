@@ -86,14 +86,17 @@ public class EncyclopediaScreenManager : MonoBehaviour
 
     public void OpenEntry(Bug bug)
     {
+        // Show correct screen
         indexScreen.SetActive(false);
         entryScreen.SetActive(true);
         
         // set entry texts
         entryNameText.SetText(bug.commonName);
         entryDescText.SetText(bug.description);
+
         // Create the spinning model
-        Instantiate(bug.model, entryModelContainer);
+        GameObject model = Instantiate(bug.model, entryModelContainer);
+        model.layer = 5;
     }
 
 }

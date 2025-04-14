@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27999b274e1252b41b5320e14a3f9bd5, type: 3}
-  m_Name: Firefly
+  m_Name: StinkBug
   m_EditorClassIdentifier: 
-  commonName: Firefly
-  catchPhrase: 
-  description: 
-  model: {fileID: 919132149155446097, guid: 8f60d1c077dc3254ba509a5aec4b15e3, type: 3}
-  difficulty: 2
-  isDiscovered: 0
-  price: 0
+  commonName: Stink Bug
+  catchPhrase: Phew... maybe sell this one quickly...
+  description: umm info here
+  model: {fileID: 919132149155446097, guid: b6378335d80dbd04e8a06ae86e57dad0, type: 3}
+  difficulty: 0
+  price: 1
+  isDiscovered: 1
+  caught: 0

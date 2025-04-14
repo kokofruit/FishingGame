@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27999b274e1252b41b5320e14a3f9bd5, type: 3}
-  m_Name: RhinocerosBeetle
+  m_Name: Mosquito
   m_EditorClassIdentifier: 
-  commonName: Rhinoceros Beetle
+  commonName: Mosquito
   catchPhrase: 
   description: 
-  model: {fileID: 919132149155446097, guid: 8240e2dbae7eee5489e3321d126d592a, type: 3}
-  difficulty: 5
+  model: {fileID: 919132149155446097, guid: 8f60d1c077dc3254ba509a5aec4b15e3, type: 3}
+  difficulty: 6
+  price: 0
   isDiscovered: 1
-  price: 5
+  caught: 0

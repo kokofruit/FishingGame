@@ -10,10 +10,13 @@ public class Bug : ScriptableObject
     public string catchPhrase;
     [TextArea]
     public string description;
+    [Space(15f)]
     public GameObject model;
 
     [Header("Internal Data")]
     public int difficulty;
-    public bool isDiscovered;
     public int price;
+    [Space(15f)]
+    public bool isDiscovered;
+    public int caught;
 }
