@@ -41,7 +41,7 @@ public class SellListingController : MonoBehaviour
         print(GameManager.instance.money + " dolla dolla bills");
         
         // Remove from inventory
-        GameManager.instance.inventory.Remove(storedBug);
+        BugManager.instance.SellBug(storedBug);
         // Remove listing
         ShopScreenManager.instance.RemoveListing(button);
 

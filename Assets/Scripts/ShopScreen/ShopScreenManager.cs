@@ -106,8 +106,7 @@ public class ShopScreenManager : MonoBehaviour
         int yVal = -25;
 
         // Create button listings based off bugs in inventory
-        foreach (Bug bug in GameManager.instance.inventory)
-        // for (int i = 0; i < 10; i++)
+        foreach (Bug bug in BugManager.instance.inventory)
         {
             // Instantiate
             Button listing = Instantiate(sellListingPrefab, scrollViewContent);
