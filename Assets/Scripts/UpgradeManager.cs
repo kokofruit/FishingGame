@@ -16,6 +16,11 @@ public class UpgradeManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    void Start()
+    {
+        GameManager.instance.OnReset += OnReset;
+    }
+
     public Upgrade GetUpgrade(string upgradeName)
     {
         foreach (Upgrade upgrade in upgrades)
@@ -48,6 +53,14 @@ public class UpgradeManager : MonoBehaviour
     public bool IsUpgradeMax(Upgrade upgrade)
     {
         return upgrade.userLevel == upgrade.maxLevel;
+    }
+
+    void OnReset()
+    {
+        foreach (Upgrade upgrade in upgrades)
+        {
+            upgrade.userLevel = 0;
+        }
     }
 
 }

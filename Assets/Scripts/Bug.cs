@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "Objects/Bug")]
 public class Bug : ScriptableObject
@@ -18,5 +19,5 @@ public class Bug : ScriptableObject
     public int price;
     [Space(15f)]
     public bool isDiscovered;
-    public int caught;
+    public int amountCaught;
 }

@@ -17,6 +17,11 @@ public class BugManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    void Start()
+    {
+        GameManager.instance.OnReset += OnReset;
+    }
+
     public Bug GetBug(string bugName)
     {
         foreach (Bug bug in allBugs)
@@ -33,7 +38,7 @@ public class BugManager : MonoBehaviour
     public void CatchBug(Bug bug)
     {
         bug.isDiscovered = true;
-        // bugs caught += 1
+        bug.amountCaught += 1;
 
         inventory.Add(bug);
     }
@@ -47,6 +52,15 @@ public class BugManager : MonoBehaviour
     {
         int bIndex = Random.Range(0, allBugs.Count);
         return allBugs[bIndex];
+    }
+
+    void OnReset()
+    {
+        foreach (Bug bug in allBugs)
+        {
+            bug.isDiscovered = false;
+            bug.amountCaught = 0;
+        }
     }
 
 }

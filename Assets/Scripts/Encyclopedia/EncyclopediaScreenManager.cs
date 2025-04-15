@@ -40,6 +40,7 @@ public class EncyclopediaScreenManager : MonoBehaviour
     void OnDisable()
     {
         CloseEntry();
+        ClearListings();
     }
 
     void GetDiscoveredBugList()
@@ -53,7 +54,7 @@ public class EncyclopediaScreenManager : MonoBehaviour
 
     void OpenIndex()
     {
-        int yVal = 0;
+        float yVal = 0;
         foreach (Bug bug in discoveredBugs)
         {
             // Instantiate
@@ -66,13 +67,13 @@ public class EncyclopediaScreenManager : MonoBehaviour
             notebookListings.Add(listing);
 
             // Change y value for next listing's position
-            yVal -= 60;
+            yVal -= 48.5f;
             // Increase size of scollview 
             indexScrollViewContent.sizeDelta = new Vector2(indexScrollViewContent.sizeDelta.x, indexScrollViewContent.sizeDelta.y + 175);
         }
     }
 
-    void CloseEntry()
+    public void CloseEntry()
     {
         // remove model if there is one already
         foreach (Transform child in entryModelContainer)
@@ -97,6 +98,18 @@ public class EncyclopediaScreenManager : MonoBehaviour
         // Create the spinning model
         GameObject model = Instantiate(bug.model, entryModelContainer);
         model.layer = 5;
+    }
+
+    void ClearListings(){
+        // Remove gameobjects
+        foreach (Button listing in notebookListings)
+        {
+            Destroy(listing.gameObject);
+        }
+        // reset scrolll view height
+        indexScrollViewContent.sizeDelta = new Vector2(indexScrollViewContent.sizeDelta.x, 25);
+        // empty list
+        notebookListings.Clear();
     }
 
 }

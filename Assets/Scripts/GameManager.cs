@@ -7,10 +7,9 @@ public class GameManager : MonoBehaviour
             // PUBLIC //
     // The singleton instance of the controller
     public static GameManager instance;
-    
-    public delegate void ResetMiniGame();
-    public event ResetMiniGame resetMiniGame;
     public float money;
+    public delegate void reset();
+    public event reset OnReset;
 
             // SERIALIZED //
     // Screens to turn on and off
@@ -21,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] CanvasGroup castScreen;
     [SerializeField] CanvasGroup waitScreen;
     [SerializeField] CanvasGroup shopScreen;
+    [SerializeField] CanvasGroup encyclopediaScreen;
 
             // PRIVATE //
     // The current screen, win or lose, null if none
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        OnReset?.Invoke();
         SetScreen(castScreen);
     }
     #endregion
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
         // activate new screen if not null
         if (currentScreen != null) currentScreen.gameObject.SetActive(true);
     }
+
     public void SetCastScreen()
     {
         SetScreen(castScreen);
@@ -62,6 +64,12 @@ public class GameManager : MonoBehaviour
     {
         SetScreen(shopScreen);
     }
+
+    public void SetEncyclopediaScreen()
+    {
+        SetScreen(encyclopediaScreen);
+    }
+
     #endregion
 
     #region CASTING
@@ -89,7 +97,6 @@ public class GameManager : MonoBehaviour
         // choose a bug
         currentBug = BugManager.instance.RandomBug();
         TargetManager.instance.SetDifficulty(currentBug.difficulty);
-        resetMiniGame?.Invoke();
     }
 
     // End a fishing minigame
