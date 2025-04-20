@@ -61,7 +61,7 @@ public class CompletionManager : MonoBehaviour
             // Otherwise, add back more of the sprite mask
             else
             {
-                maskImage.fillAmount -= gainSpeed * Time.deltaTime;
+                maskImage.fillAmount -= loseSpeed * Time.deltaTime;
 
                 // If the mask is completely there, lose the fish
                 if (maskImage.fillAmount <= 0)

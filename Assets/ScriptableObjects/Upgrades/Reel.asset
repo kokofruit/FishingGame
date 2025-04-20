@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27999b274e1252b41b5320e14a3f9bd5, type: 3}
-  m_Name: Wasp
+  m_Script: {fileID: 11500000, guid: e57b968af8abbce45a8bb5dd5f5b82ae, type: 3}
+  m_Name: Reel
   m_EditorClassIdentifier: 
-  commonName: Wasp
-  catchPhrase: 
-  description: 
-  model: {fileID: 919132149155446097, guid: 8f60d1c077dc3254ba509a5aec4b15e3, type: 3}
-  difficulty: 9
-  price: 42
-  isDiscovered: 1
-  amountCaught: 0
+  description: Reel in bugs faster!
+  maxLevel: 0
+  costs: 
+  effects: []
+  userLevel: 0

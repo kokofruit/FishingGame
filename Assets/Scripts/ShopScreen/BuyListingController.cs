@@ -25,7 +25,7 @@ public class BuyListingController : MonoBehaviour
         storedUpgrade = upgrade;
         
         // set the visual components
-        nameText.SetText(upgrade.displayName + ": Lvl " + upgrade.userLevel);
+        nameText.SetText(upgrade.name + ": Lvl " + upgrade.userLevel);
         descText.SetText(upgrade.description);
 
         // disable maxxed out upgrades

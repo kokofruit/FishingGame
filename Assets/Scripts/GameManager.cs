@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaitForBite()
     {
-        float waitDuration = Random.Range(2f, 5f) * UpgradeManager.instance.GetUpgradeEffect("cspeed");
+        float waitDuration = Random.Range(2f, 5f) * UpgradeManager.instance.GetUpgradeEffect("lure");
         yield return new WaitForSeconds(waitDuration);
         StartMiniGame();
     }

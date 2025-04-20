@@ -15,6 +15,7 @@ public class BugManager : MonoBehaviour
         if (instance == null) instance = this;
         else Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
+        GameManager.instance.OnReset += OnReset;
     }
 
     void Start()
@@ -50,7 +51,8 @@ public class BugManager : MonoBehaviour
 
     public Bug RandomBug()
     {
-        int bIndex = Random.Range(0, allBugs.Count);
+        float hookLevel = UpgradeManager.instance.GetUpgradeEffect("hook");
+        int bIndex = Random.Range(0, ((int)hookLevel) + 1);
         return allBugs[bIndex];
     }
 
@@ -60,6 +62,7 @@ public class BugManager : MonoBehaviour
         {
             bug.isDiscovered = false;
             bug.amountCaught = 0;
+            print("please?");
         }
     }
 

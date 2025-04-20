@@ -10,17 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e57b968af8abbce45a8bb5dd5f5b82ae, type: 3}
-  m_Name: CastingSpeed
+  m_Name: Hook
   m_EditorClassIdentifier: 
-  displayName: Lure Quality
-  description: Catch bugs quicker!
-  internalName: cspeed
-  maxLevel: 4
-  costs: 0100000002000000030000000400000005000000
-  effects:
-  - 1
-  - 0.75
-  - 0.5
-  - 0.25
-  - 0
+  description: Catch rarer bugs!
+  maxLevel: 0
+  costs: 
+  effects: []
   userLevel: 0

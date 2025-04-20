@@ -25,7 +25,7 @@ public class UpgradeManager : MonoBehaviour
     {
         foreach (Upgrade upgrade in upgrades)
         {
-            if (upgrade.internalName == upgradeName)
+            if (upgrade.name.ToUpper() == upgradeName.ToUpper())
             {
                 return upgrade;
             }
@@ -40,11 +40,11 @@ public class UpgradeManager : MonoBehaviour
         return upgrade.effects[upgrade.userLevel];
     }
 
-    public int GetUpgradeCost(string upgradeName)
-    {
-        Upgrade upgrade = GetUpgrade(upgradeName);
-        return upgrade.costs[upgrade.userLevel];
-    }
+    // public int GetUpgradeCost(string upgradeName)
+    // {
+    //     Upgrade upgrade = GetUpgrade(upgradeName);
+    //     return upgrade.costs[upgrade.userLevel];
+    // }
     public int GetUpgradeCost(Upgrade upgrade)
     {
         return upgrade.costs[upgrade.userLevel];
@@ -52,7 +52,7 @@ public class UpgradeManager : MonoBehaviour
 
     public bool IsUpgradeMax(Upgrade upgrade)
     {
-        return upgrade.userLevel == upgrade.maxLevel;
+        return upgrade.userLevel == upgrade.effects.Length - 1;
     }
 
     void OnReset()
