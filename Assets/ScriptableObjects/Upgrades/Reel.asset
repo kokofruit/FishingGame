@@ -13,7 +13,17 @@ MonoBehaviour:
   m_Name: Reel
   m_EditorClassIdentifier: 
   description: Reel in bugs faster!
-  maxLevel: 0
-  costs: 
-  effects: []
+  costs: 0200000002000000020000000200000002000000020000000200000002000000020000000200000002000000
+  effects:
+  - 0.2
+  - 0.215
+  - 0.23
+  - 0.245
+  - 0.26
+  - 0.275
+  - 0.29
+  - 0.305
+  - 0.32
+  - 0.335
+  - 0.35
   userLevel: 0

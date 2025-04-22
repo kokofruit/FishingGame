@@ -15,8 +15,8 @@ MonoBehaviour:
   commonName: Firefly
   catchPhrase: 
   description: 
-  model: {fileID: 919132149155446097, guid: 8f60d1c077dc3254ba509a5aec4b15e3, type: 3}
+  model: {fileID: 919132149155446097, guid: e2a7caf60a1ba074faae099218ecf9d2, type: 3}
   difficulty: 2
   price: 8
-  isDiscovered: 1
+  isDiscovered: 0
   amountCaught: 0

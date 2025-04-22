@@ -62,7 +62,6 @@ public class BugManager : MonoBehaviour
         {
             bug.isDiscovered = false;
             bug.amountCaught = 0;
-            print("please?");
         }
     }
 
