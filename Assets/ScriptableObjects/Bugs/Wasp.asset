@@ -19,4 +19,4 @@ MonoBehaviour:
   difficulty: 9
   price: 42
   isDiscovered: 1
-  amountCaught: 0
+  amountCaught: 1

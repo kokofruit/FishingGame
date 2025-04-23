@@ -33,6 +33,10 @@ public class CompletionManager : MonoBehaviour
     {
         maskImage.fillAmount = 0.25f;
         isGaining = false;
+
+        gainSpeed = UpgradeManager.instance.GetUpgradeEffect("reel");
+        loseSpeed = UpgradeManager.instance.GetUpgradeEffect("line");
+
         StartCoroutine("GracePeriod");
     }
 

@@ -18,5 +18,5 @@ MonoBehaviour:
   model: {fileID: 919132149155446097, guid: 11511befdc21d304ab83fb8d118a68a2, type: 3}
   difficulty: 1
   price: 5
-  isDiscovered: 1
-  amountCaught: 1
+  isDiscovered: 0
+  amountCaught: 0
