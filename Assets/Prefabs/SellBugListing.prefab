@@ -137,6 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 1599606397086881476}
   priceText: {fileID: 1339757652649819975}
+  sellSound: {fileID: 8300000, guid: 55a3e9257a04d234888cb9236591fe9f, type: 3}
 --- !u!1 &4059049108639793652
 GameObject:
   m_ObjectHideFlags: 0

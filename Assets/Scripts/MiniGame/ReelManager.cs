@@ -34,7 +34,6 @@ public class ReelManager : MonoBehaviour
         float speed = RotateReel();
         //float speed = MeasureSpeed();
         PointerManager.instance.MovePointer(speed / maxTurnSpeed);
-        //MiniGameManager.instance.UpdatePointer(speed / maxTurnSpeed);
     }
 
     // Rotate the reel towards the mouse and calculate the rotation speed

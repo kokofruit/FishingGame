@@ -407,6 +407,7 @@ MonoBehaviour:
   nameText: {fileID: 727861942617361039}
   descText: {fileID: 5348734903517230117}
   costText: {fileID: 6272806661268705983}
+  buySound: {fileID: 8300000, guid: 4920b405711eab34d97d3972a995f07b, type: 3}
 --- !u!1 &8452363738742688913
 GameObject:
   m_ObjectHideFlags: 0

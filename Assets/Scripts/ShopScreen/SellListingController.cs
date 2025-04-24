@@ -11,6 +11,8 @@ public class SellListingController : MonoBehaviour
     [SerializeField] TMP_Text nameText;
     // the text that displays the price of the bug
     [SerializeField] TMP_Text priceText;
+    // the sound played when a bug is sold
+    [SerializeField] AudioClip sellSound;
 
     // Private
     // the button component of the entire listing
@@ -18,8 +20,7 @@ public class SellListingController : MonoBehaviour
     // the bug associated with the listing
     Bug storedBug;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(SellBug);
@@ -47,5 +48,8 @@ public class SellListingController : MonoBehaviour
 
         // Update money display
         ShopScreenManager.instance.UpdateMoney();
+
+        // Play sound
+        SoundManager.instance.PlaySoundOnce(sellSound);
     }
 }

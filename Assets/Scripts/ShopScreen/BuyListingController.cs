@@ -6,11 +6,20 @@ using UnityEngine.UI;
 
 public class BuyListingController : MonoBehaviour
 {
+    // SERIALIZED //
+    // the text that displays the name of the upgrade
     [SerializeField] TMP_Text nameText;
+    // the text that displays the description of the upgrade
     [SerializeField] TMP_Text descText;
+    // the text that displays the cost of the upgrade
     [SerializeField] TMP_Text costText;
+    // the sound played when a purchase is made
+    [SerializeField] AudioClip buySound;
 
+    // PRIVATE //
+    // the button component of the entire listing
     Button listing;
+    // the upgrade associated with the listing
     Upgrade storedUpgrade;
 
     void Awake()
@@ -58,6 +67,9 @@ public class BuyListingController : MonoBehaviour
 
         // Update money display
         ShopScreenManager.instance.UpdateMoney();
+
+        // Play sound
+        SoundManager.instance.PlaySoundOnce(buySound);
     
     }
 }
