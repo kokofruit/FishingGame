@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     CanvasGroup currentScreen;
     // The bug being fished for currently
     Bug currentBug;
+    public static bool tutorialCompleted = false;
 
     #region UNITY BUILT-INS
     void Awake()
@@ -42,11 +43,12 @@ public class GameManager : MonoBehaviour
     {
         OnReset?.Invoke();
         SetScreen(castScreen);
-        SceneManager.LoadScene("Tutorial", LoadSceneMode.Additive);
+
+        if (!tutorialCompleted) SceneManager.LoadScene("Tutorial", LoadSceneMode.Additive);
     }
     #endregion
 
-    #region SET SCREENS
+    #region SCREEN MANAGEMENT
     void SetScreen(CanvasGroup screen)
     {
         // deactivate old screen
@@ -55,6 +57,16 @@ public class GameManager : MonoBehaviour
         currentScreen = screen;
         // activate new screen if not null
         if (currentScreen != null) currentScreen.gameObject.SetActive(true);
+    }
+
+    public void PauseScreenRaycasts()
+    {
+        currentScreen.blocksRaycasts = false;
+    }
+
+    public void ResumeScreenRaycasts()
+    {
+        currentScreen.blocksRaycasts = true;
     }
 
     public void SetCastScreen()
@@ -99,6 +111,9 @@ public class GameManager : MonoBehaviour
         // choose a bug
         currentBug = BugManager.instance.RandomBug();
         TargetManager.instance.SetDifficulty(currentBug.difficulty);
+
+        // Trigger tutorial
+        if (!tutorialCompleted) EventManager.TriggerEvent("TutorialReel");
     }
 
     // End a fishing minigame

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ReelManager : MonoBehaviour
 {
@@ -12,24 +13,36 @@ public class ReelManager : MonoBehaviour
 
         // Private variables //
     // The main camera of the scene
+    UnityAction tutorialReelListener;
     Camera cam;
+    bool paused;
 
     // Set the singleton instance
     void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
+        // cache cam
+        cam = Camera.main;
+        // unity actions
+        tutorialReelListener = new UnityAction(PauseReel);
     }
 
-    // Initialize variables
-    private void Start()
+    void OnEnable()
     {
-        cam = Camera.main;
+        if (!GameManager.tutorialCompleted) EventManager.StartListening("TutorialReel", tutorialReelListener);
+    }
+
+    void PauseReel()
+    {
+        paused = true;
     }
 
     // Call helper functions
     private void FixedUpdate()
     {
+        if (paused) return;
+
         // Rotate the reel to the mouse and calculate the rotation speed
         float speed = RotateReel();
         //float speed = MeasureSpeed();
