@@ -12,8 +12,8 @@ public class TutorialManager : MonoBehaviour
     // Public instance
     public static TutorialManager instance;
 
-    // The display text
-    [SerializeField] TMP_Text tutText;
+    // The display groups
+    [SerializeField] List<CanvasGroup> tutorialGroups;
 
     // Canvas group of the tutorial
     CanvasGroup tutCanvasGroup;
@@ -36,8 +36,12 @@ public class TutorialManager : MonoBehaviour
 
     void OnEnable()
     {
-        HideTutorial();
         EventManager.StartListening("TutorialReel", tutorialReelListener);
+    }
+
+    void Start()
+    {
+        HideTutorial();
     }
 
     void OnDisable()
@@ -48,6 +52,13 @@ public class TutorialManager : MonoBehaviour
     #endregion
 
     #region VISIBILITY
+
+    public void OnClick()
+    {
+        HideTutorial();
+        EventManager.TriggerEvent("ExitTutorial");
+    }
+
     void ShowTutorial()
     {
         // Show tutorial and enable clicking on it
@@ -58,11 +69,16 @@ public class TutorialManager : MonoBehaviour
         GameManager.instance.PauseScreenRaycasts();
     }
 
-    public void HideTutorial()
+    void HideTutorial()
     {
         // Hide tutorial and disable clicking on it
         tutCanvasGroup.alpha = 0;
         tutCanvasGroup.blocksRaycasts = false;
+
+        foreach (CanvasGroup imageGroup in tutorialGroups)
+        {
+            imageGroup.alpha = 0;
+        }
 
         // Resume other interactions
         GameManager.instance.ResumeScreenRaycasts();
@@ -75,8 +91,7 @@ public class TutorialManager : MonoBehaviour
     void TutorialReelActor()
     {
         ShowTutorial();
-
-        tutText.SetText("You hooked a bug!\nTo reel in a bug, rotate your mouse around the reel.");
+        tutorialGroups[0].alpha = 1;
     }
     
     #endregion

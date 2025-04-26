@@ -13,9 +13,11 @@ public class ReelManager : MonoBehaviour
 
         // Private variables //
     // The main camera of the scene
-    UnityAction tutorialReelListener;
     Camera cam;
-    bool paused;
+    bool isPaused;
+    //unity actions
+    UnityAction tutorialReelListener;
+    UnityAction exitTutorialListener;
 
     // Set the singleton instance
     void Awake()
@@ -26,22 +28,32 @@ public class ReelManager : MonoBehaviour
         cam = Camera.main;
         // unity actions
         tutorialReelListener = new UnityAction(PauseReel);
+        exitTutorialListener = new UnityAction(ResumeReel);
     }
 
     void OnEnable()
     {
-        if (!GameManager.tutorialCompleted) EventManager.StartListening("TutorialReel", tutorialReelListener);
+        if (!GameManager.tutorialCompleted)
+        {
+            EventManager.StartListening("TutorialReel", tutorialReelListener);
+            EventManager.StartListening("ExitTutorial", exitTutorialListener);
+        }
     }
 
     void PauseReel()
     {
-        paused = true;
+        isPaused = true;
+    }
+
+    void ResumeReel()
+    {
+        isPaused = false;
     }
 
     // Call helper functions
     private void FixedUpdate()
     {
-        if (paused) return;
+        if (isPaused) return;
 
         // Rotate the reel to the mouse and calculate the rotation speed
         float speed = RotateReel();

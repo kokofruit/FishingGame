@@ -14,11 +14,7 @@ public class CompletionManager : MonoBehaviour
     Image maskImage;
     // If the player is making progress towards the catch (if pointer in target)
     bool isGaining;
-    // if completion is paused
-    bool isPaused = false;
-    // unity actions
-    UnityAction tutorialReelListener;
-    
+
     void Awake()
     {
         // Set the singleton instance
@@ -27,9 +23,6 @@ public class CompletionManager : MonoBehaviour
 
         // Cache components
         maskImage = GetComponent<Image>();
-
-        // unity actions
-        tutorialReelListener = new UnityAction(PauseCompletion);
     }
 
     void OnDisable()
@@ -39,28 +32,18 @@ public class CompletionManager : MonoBehaviour
 
     void OnEnable()
     {
-        if (!GameManager.tutorialCompleted) EventManager.StartListening("TutorialReel", tutorialReelListener);
-
+       
         maskImage.fillAmount = 0.25f;
         isGaining = false;
 
         gainSpeed = UpgradeManager.instance.GetUpgradeEffect("reel");
         loseSpeed = UpgradeManager.instance.GetUpgradeEffect("line");
-
+        
         StartCoroutine("GracePeriod");
-    }
-
-    void PauseCompletion()
-    {
-        isPaused = true;
     }
 
     IEnumerator GracePeriod()
     {
-        while (isPaused)
-        {
-            // don't do anything
-        }
         yield return new WaitForSeconds(1.5f);
         StartCoroutine("UpdateCompletion");
     }
@@ -69,12 +52,8 @@ public class CompletionManager : MonoBehaviour
     {
         while (true)
         {
-            if (isPaused)
-            {
-                // skip everything else if not paused
-            }
             // If the status is gaining, remove more of the sprite mask
-            else if (isGaining)
+            if (isGaining)
             {
                 maskImage.fillAmount += gainSpeed * Time.deltaTime;
 
@@ -86,7 +65,7 @@ public class CompletionManager : MonoBehaviour
                 }
             }
             // Otherwise, add back more of the sprite mask
-            else
+            else if (GameManager.tutorialCompleted)
             {
                 maskImage.fillAmount -= loseSpeed * Time.deltaTime;
 
