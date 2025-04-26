@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class CompletionManager : MonoBehaviour
@@ -13,6 +14,10 @@ public class CompletionManager : MonoBehaviour
     Image maskImage;
     // If the player is making progress towards the catch (if pointer in target)
     bool isGaining;
+    // if completion is paused
+    bool isPaused = false;
+    // unity actions
+    UnityAction tutorialReelListener;
     
     void Awake()
     {
@@ -22,6 +27,9 @@ public class CompletionManager : MonoBehaviour
 
         // Cache components
         maskImage = GetComponent<Image>();
+
+        // unity actions
+        tutorialReelListener = new UnityAction(PauseCompletion);
     }
 
     void OnDisable()
@@ -31,6 +39,8 @@ public class CompletionManager : MonoBehaviour
 
     void OnEnable()
     {
+        if (!GameManager.tutorialCompleted) EventManager.StartListening("TutorialReel", tutorialReelListener);
+
         maskImage.fillAmount = 0.25f;
         isGaining = false;
 
@@ -40,8 +50,17 @@ public class CompletionManager : MonoBehaviour
         StartCoroutine("GracePeriod");
     }
 
+    void PauseCompletion()
+    {
+        isPaused = true;
+    }
+
     IEnumerator GracePeriod()
     {
+        while (isPaused)
+        {
+            // don't do anything
+        }
         yield return new WaitForSeconds(1.5f);
         StartCoroutine("UpdateCompletion");
     }
@@ -50,8 +69,12 @@ public class CompletionManager : MonoBehaviour
     {
         while (true)
         {
+            if (isPaused)
+            {
+                // skip everything else if not paused
+            }
             // If the status is gaining, remove more of the sprite mask
-            if (isGaining)
+            else if (isGaining)
             {
                 maskImage.fillAmount += gainSpeed * Time.deltaTime;
 
