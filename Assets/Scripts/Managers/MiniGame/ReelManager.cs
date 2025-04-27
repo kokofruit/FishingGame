@@ -36,7 +36,18 @@ public class ReelManager : MonoBehaviour
         if (!GameManager.tutorialCompleted)
         {
             EventManager.StartListening("TutorialReel", tutorialReelListener);
+            EventManager.StartListening("TutorialCompletion", tutorialReelListener);
             EventManager.StartListening("ExitTutorial", exitTutorialListener);
+        }
+    }
+
+    void OnDisable()
+    {
+        if (!GameManager.tutorialCompleted)
+        {
+            EventManager.StopListening("TutorialReel", tutorialReelListener);
+            EventManager.StopListening("TutorialCompletion", tutorialReelListener);
+            EventManager.StopListening("ExitTutorial", exitTutorialListener);
         }
     }
 

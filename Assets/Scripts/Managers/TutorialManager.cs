@@ -11,6 +11,7 @@ public class TutorialManager : MonoBehaviour
 {
     // Public instance
     public static TutorialManager instance;
+    public bool completionTutorialCompleted = false;
 
     // The display groups
     [SerializeField] List<CanvasGroup> tutorialGroups;
@@ -19,6 +20,7 @@ public class TutorialManager : MonoBehaviour
     CanvasGroup tutCanvasGroup;
     // UnityActions
     UnityAction tutorialReelListener;
+    UnityAction tutorialCompletionListener;
 
     #region UNITY BUILT-INS
     void Awake()
@@ -32,11 +34,13 @@ public class TutorialManager : MonoBehaviour
 
         // Set unityactions
         tutorialReelListener = new UnityAction(TutorialReelActor);
+        tutorialCompletionListener = new UnityAction(TutorialCompletionActor);
     }
 
     void OnEnable()
     {
         EventManager.StartListening("TutorialReel", tutorialReelListener);
+        EventManager.StartListening("TutorialCompletion", tutorialCompletionListener);
     }
 
     void Start()
@@ -47,6 +51,7 @@ public class TutorialManager : MonoBehaviour
     void OnDisable()
     {
         EventManager.StopListening("TutorialReel", tutorialReelListener);
+        EventManager.StopListening("TutorialCompletion", tutorialCompletionListener);
     }
 
     #endregion
@@ -92,6 +97,13 @@ public class TutorialManager : MonoBehaviour
     {
         ShowTutorial();
         tutorialGroups[0].alpha = 1;
+    }
+
+    void TutorialCompletionActor()
+    {
+        ShowTutorial();
+        completionTutorialCompleted = true;
+        tutorialGroups[1].alpha = 1;
     }
     
     #endregion

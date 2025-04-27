@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 public class TargetManager : MonoBehaviour
@@ -10,7 +11,7 @@ public class TargetManager : MonoBehaviour
     public static TargetManager instance;
 
     // Private
-    
+    // state machine
     enum TargetStates
     {
         idling,
@@ -19,32 +20,62 @@ public class TargetManager : MonoBehaviour
         nothing,
     }
     [SerializeField] TargetStates targetState = TargetStates.deciding;
-
+    // duration the target idles for and the timer for keeping track of it
     [SerializeField] float idleTimer;
     [SerializeField] float idleDuration;
-
+    // the goal for the target to move to
     Vector2 destination;
-
+    // how fast the target moves
     [SerializeField] float targetMoveSpeed;
-
+    // the difficulty of the bug
     private int bugDifficulty;
+    
+    //unity actions
+    UnityAction tutorialReelListener;
+    UnityAction exitTutorialListener;
 
     // Set the singleton instance
     void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
+        // unity actions
+        tutorialReelListener = new UnityAction(PauseTarget);
+        exitTutorialListener = new UnityAction(ResumeTarget);
     }
 
     void OnEnable()
     {
         transform.localPosition = new Vector3(0f, 0f, 0f);
         targetState = TargetStates.deciding;
+        
+        if (!GameManager.tutorialCompleted)
+        {
+            EventManager.StartListening("TutorialReel", tutorialReelListener);
+            EventManager.StartListening("ExitTutorial", exitTutorialListener);
+        }
     }
 
     void OnDisable()
     {
         targetState = TargetStates.nothing;
+
+        if (!GameManager.tutorialCompleted)
+        {
+            EventManager.StopListening("TutorialReel", tutorialReelListener);
+            EventManager.StopListening("ExitTutorial", exitTutorialListener);
+        }
+    }
+
+    void PauseTarget()
+    {
+        targetState = TargetStates.nothing;
+    }
+
+    void ResumeTarget()
+    {
+        idleTimer = idleDuration / 4f;
+        targetState = TargetStates.idling;
     }
 
     public void SetDifficulty(int difficulty)

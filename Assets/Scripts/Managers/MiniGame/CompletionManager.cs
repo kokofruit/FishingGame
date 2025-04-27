@@ -14,6 +14,11 @@ public class CompletionManager : MonoBehaviour
     Image maskImage;
     // If the player is making progress towards the catch (if pointer in target)
     bool isGaining;
+    // if completion is paused or not
+    bool isPaused;
+    //unity actions
+    UnityAction tutorialCompletionListener;
+    UnityAction exitTutorialListener;
 
     void Awake()
     {
@@ -23,15 +28,30 @@ public class CompletionManager : MonoBehaviour
 
         // Cache components
         maskImage = GetComponent<Image>();
+
+        // unity actions
+        tutorialCompletionListener = new UnityAction(PauseCompletion);
+        exitTutorialListener = new UnityAction(ResumeCompletion);
     }
 
     void OnDisable()
     {
+        if (!GameManager.tutorialCompleted)
+        {
+            EventManager.StopListening("TutorialCompletion", tutorialCompletionListener);
+            EventManager.StopListening("ExitTutorial", exitTutorialListener);
+        }
+
         StopAllCoroutines();
     }
 
     void OnEnable()
     {
+        if (!GameManager.tutorialCompleted)
+        {
+            EventManager.StartListening("TutorialCompletion", tutorialCompletionListener);
+            EventManager.StartListening("ExitTutorial", exitTutorialListener);
+        }
        
         maskImage.fillAmount = 0.25f;
         isGaining = false;
@@ -40,6 +60,17 @@ public class CompletionManager : MonoBehaviour
         loseSpeed = UpgradeManager.instance.GetUpgradeEffect("line");
         
         StartCoroutine("GracePeriod");
+        
+    }
+
+    void PauseCompletion()
+    {
+        isPaused = true;
+    }
+
+    void ResumeCompletion()
+    {
+        isPaused = false;
     }
 
     IEnumerator GracePeriod()
@@ -53,7 +84,7 @@ public class CompletionManager : MonoBehaviour
         while (true)
         {
             // If the status is gaining, remove more of the sprite mask
-            if (isGaining)
+            if (isGaining && !isPaused)
             {
                 maskImage.fillAmount += gainSpeed * Time.deltaTime;
 

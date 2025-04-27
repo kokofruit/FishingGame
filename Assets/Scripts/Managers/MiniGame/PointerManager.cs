@@ -40,6 +40,8 @@ public class PointerManager : MonoBehaviour
     // If the pointer is in the target, set the progress bar to increase
     void OnTriggerEnter2D(Collider2D collider)
     {
+        if (TutorialManager.instance != null && !TutorialManager.instance.completionTutorialCompleted)
+            EventManager.TriggerEvent("TutorialCompletion");
         if (collider.gameObject.CompareTag("Target"))
         {
             CompletionManager.instance.SetGaining(true);
