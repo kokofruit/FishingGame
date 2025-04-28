@@ -1,9 +1,19 @@
-Models
-Bug Info
-Tutorial
-Sounds
-Start Screen
-    Start
-    Settings
-    Credits
-Settings
+sound
+music
+visuals
+    bug models
+    background art/models
+upgrade prices
+saving and loading progress
+settings
+    save game
+    sound volume
+    music volume
+    fullscreen?
+    custom cursor?
+    credits
+tutorial
+    ---cast
+    ---reeling
+    completion
+    notebook and shop
