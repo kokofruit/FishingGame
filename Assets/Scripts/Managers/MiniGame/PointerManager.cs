@@ -27,10 +27,8 @@ public class PointerManager : MonoBehaviour
     // Move the pointer towards a position
     public void MovePointer(float position)
     {
-        // Clamp the position
-        float cPosition = Mathf.Clamp01(position);
         // Find the placement along the range bar
-        float rPosition = cPosition - 0.5f;
+        float rPosition = position - 0.5f;
         // Limit the movement by pointer speed 
         float xPosition = Mathf.MoveTowards(transform.localPosition.x, rPosition, pointerMoveSpeed * Time.deltaTime);
         // Set the pointer's position

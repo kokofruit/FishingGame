@@ -10,12 +10,19 @@ public class WinScreenManager : MonoBehaviour
     [SerializeField] TMP_Text nameText;
     [SerializeField] TMP_Text catchPhraseText;
     [SerializeField] GameObject newStar;
+    [SerializeField] AudioClip tadaSound;
 
     // Set the singleton instance
     void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
+    }
+
+    void OnEnable()
+    {
+        // play victory sound
+        SoundManager.instance.PlaySoundOnce(tadaSound, volume: 0.4f);
     }
 
     void OnDisable()

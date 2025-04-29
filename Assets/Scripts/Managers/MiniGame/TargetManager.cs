@@ -31,7 +31,9 @@ public class TargetManager : MonoBehaviour
     private int bugDifficulty;
     
     //unity actions
-    UnityAction tutorialReelListener;
+    // will listen for the tutorial resuming in order to pause the target
+    UnityAction enterTutorialListener;
+    // will listen for the tutorial exiting in order to resume the target
     UnityAction exitTutorialListener;
 
     // Set the singleton instance
@@ -40,7 +42,7 @@ public class TargetManager : MonoBehaviour
         if (instance == null) instance = this;
         else Destroy(gameObject);
         // unity actions
-        tutorialReelListener = new UnityAction(PauseTarget);
+        enterTutorialListener = new UnityAction(PauseTarget);
         exitTutorialListener = new UnityAction(ResumeTarget);
     }
 
@@ -51,7 +53,8 @@ public class TargetManager : MonoBehaviour
         
         if (!GameManager.tutorialCompleted)
         {
-            EventManager.StartListening("TutorialReel", tutorialReelListener);
+            EventManager.StartListening("TutorialReel", enterTutorialListener);
+            EventManager.StartListening("TutorialCompletion", enterTutorialListener);
             EventManager.StartListening("ExitTutorial", exitTutorialListener);
         }
     }
@@ -62,7 +65,8 @@ public class TargetManager : MonoBehaviour
 
         if (!GameManager.tutorialCompleted)
         {
-            EventManager.StopListening("TutorialReel", tutorialReelListener);
+            EventManager.StopListening("TutorialReel", enterTutorialListener);
+            EventManager.StopListening("TutorialCompletion", enterTutorialListener);
             EventManager.StopListening("ExitTutorial", exitTutorialListener);
         }
     }

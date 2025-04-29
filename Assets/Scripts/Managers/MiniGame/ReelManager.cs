@@ -14,9 +14,15 @@ public class ReelManager : MonoBehaviour
         // Private variables //
     // The main camera of the scene
     Camera cam;
+    // the audio source that plays the reeling sound
+    AudioSource audioSource;
+    // whether the reeling is paused or not
     bool isPaused;
+
     //unity actions
-    UnityAction tutorialReelListener;
+    // will listen for the tutorial resuming in order to pause the reel
+    UnityAction enterTutorialListener;
+    // will listen for the tutorial exiting in order to resume the reel
     UnityAction exitTutorialListener;
 
     // Set the singleton instance
@@ -24,35 +30,41 @@ public class ReelManager : MonoBehaviour
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
-        // cache cam
+        
+        // cache
         cam = Camera.main;
+        audioSource = GetComponent<AudioSource>();
+
         // unity actions
-        tutorialReelListener = new UnityAction(PauseReel);
+        enterTutorialListener = new UnityAction(PauseReel);
         exitTutorialListener = new UnityAction(ResumeReel);
     }
 
+    // start listeners
     void OnEnable()
     {
         if (!GameManager.tutorialCompleted)
         {
-            EventManager.StartListening("TutorialReel", tutorialReelListener);
-            EventManager.StartListening("TutorialCompletion", tutorialReelListener);
+            EventManager.StartListening("TutorialReel", enterTutorialListener);
+            EventManager.StartListening("TutorialCompletion", enterTutorialListener);
             EventManager.StartListening("ExitTutorial", exitTutorialListener);
         }
     }
 
+    // stop listeners
     void OnDisable()
     {
         if (!GameManager.tutorialCompleted)
         {
-            EventManager.StopListening("TutorialReel", tutorialReelListener);
-            EventManager.StopListening("TutorialCompletion", tutorialReelListener);
+            EventManager.StopListening("TutorialReel", enterTutorialListener);
+            EventManager.StopListening("TutorialCompletion", enterTutorialListener);
             EventManager.StopListening("ExitTutorial", exitTutorialListener);
         }
     }
 
     void PauseReel()
     {
+        audioSource.volume = 0;
         isPaused = true;
     }
 
@@ -68,8 +80,12 @@ public class ReelManager : MonoBehaviour
 
         // Rotate the reel to the mouse and calculate the rotation speed
         float speed = RotateReel();
-        //float speed = MeasureSpeed();
-        PointerManager.instance.MovePointer(speed / maxTurnSpeed);
+        float turnSpeed = Mathf.Clamp01(speed / maxTurnSpeed);
+
+        // adjust the reeling sound effect
+        AdjustSound(turnSpeed);
+        // send data to pointer
+        PointerManager.instance.MovePointer(turnSpeed);
     }
 
     // Rotate the reel towards the mouse and calculate the rotation speed
@@ -86,6 +102,15 @@ public class ReelManager : MonoBehaviour
 
         // Return the rotation per second. Invert negative to account for counter/clockwise reel rotation.
         return -1f * angle / Time.deltaTime;
+    }
+
+    void AdjustSound(float turnSpeed)
+    {
+        float volume = turnSpeed * 0.6f;
+        float pitch = 1.3f * turnSpeed + 0.7f;
+
+        audioSource.volume = volume;
+        audioSource.pitch = pitch;
     }
 
 }

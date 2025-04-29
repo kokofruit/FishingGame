@@ -11,6 +11,7 @@ public class StartScreenManager : MonoBehaviour
     [SerializeField] Button startButton;
     [SerializeField] Button settingsButton;
     [SerializeField] Button quitButton;
+    [SerializeField] AudioClip pressSound;
 
     void Awake()
     {
@@ -21,12 +22,13 @@ public class StartScreenManager : MonoBehaviour
 
     void StartGame()
     {
+        SoundManager.instance.PlaySoundOnce(pressSound);
         SceneManager.LoadScene("FishingGame");
     }
 
     void OpenSettings()
     {
-        
+        SoundManager.instance.PlaySoundOnce(pressSound);
     }
 
     void QuitGame()
