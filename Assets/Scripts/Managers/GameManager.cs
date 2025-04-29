@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] CanvasGroup waitScreen;
     [SerializeField] CanvasGroup shopScreen;
     [SerializeField] CanvasGroup encyclopediaScreen;
-
+    
             // PRIVATE //
     // The current screen, win or lose, null if none
     CanvasGroup currentScreen;

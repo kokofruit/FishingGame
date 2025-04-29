@@ -9,16 +9,20 @@ public class ShopScreenManager : MonoBehaviour
 {
     public static ShopScreenManager instance;
 
+    // scroll view for buy and sell screen
     [SerializeField] RectTransform scrollViewContent;
 
+    // prefabs for populating buy and sell screens
     [SerializeField] Button buyListingPrefab;
     [SerializeField] Button sellListingPrefab;
 
+    // buy and sell tab buttons
     [SerializeField] Button buyButton;
     [SerializeField] Button sellButton;
 
+    // money display
     [SerializeField] TMP_Text moneyText;
-
+    
     List<Button> listings = new();
 
     Image buyButtonImage;

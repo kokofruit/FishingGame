@@ -1880,51 +1880,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 432876962}
   m_CullTransparentMesh: 1
---- !u!1 &483909394
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 483909396}
-  - component: {fileID: 483909395}
-  m_Layer: 0
-  m_Name: '!!!!DELETE THIS!!!!'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &483909395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 483909394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7dfe4275d4e11f46881943d03d53818, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSourcePrefab: {fileID: 7954080509379549749, guid: 5146e0ac2a7ff4341897564e4bde412f, type: 3}
---- !u!4 &483909396
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 483909394}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -5267,6 +5222,8 @@ MonoBehaviour:
   waitScreen: {fileID: 307353296}
   shopScreen: {fileID: 1873307947}
   encyclopediaScreen: {fileID: 1792396355}
+  gameMusic: {fileID: 8300000, guid: a5607bc90795fc64f8f091503681e012, type: 3}
+  shopMusic: {fileID: 8300000, guid: a13e504ec6a115e4bb382ebee94e1ec3, type: 3}
 --- !u!114 &1517451468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8350,4 +8307,3 @@ SceneRoots:
   - {fileID: 1517451465}
   - {fileID: 1341827271}
   - {fileID: 1426437445}
-  - {fileID: 483909396}

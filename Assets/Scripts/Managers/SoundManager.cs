@@ -19,13 +19,17 @@ public class SoundManager : MonoBehaviour
     // Play a sound effect a single time, with adjustable volume
     public void PlaySoundOnce(AudioClip clip, float volume = 1)
     {
+        // create new audiosource
         AudioSource player = Instantiate(audioSourcePrefab);
-
+        
+        // set clip and volume
         player.clip = clip;
         player.volume = volume;
 
+        // play sound
         player.Play();
 
+        // destroy after done playing
         Destroy(player.gameObject, clip.length);
     }
 
