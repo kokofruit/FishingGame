@@ -44,7 +44,10 @@ public class GameManager : MonoBehaviour
         OnReset?.Invoke();
         SetScreen(castScreen);
 
-        if (!tutorialCompleted) SceneManager.LoadScene("Tutorial", LoadSceneMode.Additive);
+        if (!tutorialCompleted)
+        {
+            SceneManager.LoadScene("Tutorial", LoadSceneMode.Additive);
+        }
     }
     #endregion
 
@@ -72,6 +75,7 @@ public class GameManager : MonoBehaviour
     public void SetCastScreen()
     {
         SetScreen(castScreen);
+        if (!tutorialCompleted) EventManager.TriggerEvent("TutorialPostCatch");
     }
 
     public void SetShopScreen()

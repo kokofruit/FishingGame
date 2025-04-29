@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
@@ -19,8 +20,10 @@ public class TutorialManager : MonoBehaviour
     // Canvas group of the tutorial
     CanvasGroup tutCanvasGroup;
     // UnityActions
+    UnityAction tutorialCastingListener;
     UnityAction tutorialReelListener;
     UnityAction tutorialCompletionListener;
+    UnityAction tutorialPostCatchListener;
 
     #region UNITY BUILT-INS
     void Awake()
@@ -33,25 +36,33 @@ public class TutorialManager : MonoBehaviour
         tutCanvasGroup = GetComponent<CanvasGroup>();
 
         // Set unityactions
+        tutorialCastingListener = new UnityAction(TutorialCastingActor);
         tutorialReelListener = new UnityAction(TutorialReelActor);
         tutorialCompletionListener = new UnityAction(TutorialCompletionActor);
+        tutorialPostCatchListener = new UnityAction(TutorialPostCatchActor);
     }
 
     void OnEnable()
     {
+        // start listening
+        EventManager.StartListening("TutorialCasting", tutorialCastingListener);
         EventManager.StartListening("TutorialReel", tutorialReelListener);
         EventManager.StartListening("TutorialCompletion", tutorialCompletionListener);
+        EventManager.StartListening("TutorialPostCatch", tutorialPostCatchListener);
     }
 
     void Start()
     {
-        HideTutorial();
+        EventManager.TriggerEvent("TutorialCasting");
     }
 
     void OnDisable()
     {
+        // stop listening
+        EventManager.StopListening("TutorialCasting", tutorialCastingListener);
         EventManager.StopListening("TutorialReel", tutorialReelListener);
         EventManager.StopListening("TutorialCompletion", tutorialCompletionListener);
+        EventManager.StopListening("TutorialPostCatch", tutorialPostCatchListener);
     }
 
     #endregion
@@ -61,7 +72,8 @@ public class TutorialManager : MonoBehaviour
     public void OnClick()
     {
         HideTutorial();
-        EventManager.TriggerEvent("ExitTutorial");
+        if (!GameManager.tutorialCompleted) EventManager.TriggerEvent("ExitTutorial");
+        else EndTutorial();
     }
 
     void ShowTutorial()
@@ -89,22 +101,46 @@ public class TutorialManager : MonoBehaviour
         GameManager.instance.ResumeScreenRaycasts();
     }
 
+    void EndTutorial()
+    {
+        GameManager.instance.ResumeScreenRaycasts();
+        SceneManager.UnloadSceneAsync("Tutorial");
+    }
+
     #endregion
 
+    // functions that respond to event triggers and show relevant tutorial content
     #region EVENT ACTORS
 
-    void TutorialReelActor()
+    // for when you start
+    void TutorialCastingActor()
     {
         ShowTutorial();
         tutorialGroups[0].alpha = 1;
     }
 
+    // explains how to reel in
+    void TutorialReelActor()
+    {
+        ShowTutorial();
+        tutorialGroups[1].alpha = 1;
+    }
+
+    // explains the completion radial
     void TutorialCompletionActor()
     {
         ShowTutorial();
         completionTutorialCompleted = true;
-        tutorialGroups[1].alpha = 1;
+        tutorialGroups[2].alpha = 1;
     }
-    
+
+    // explains the shop and notebook
+    void TutorialPostCatchActor()
+    {
+        ShowTutorial();
+        tutorialGroups[3].alpha = 1;
+        GameManager.tutorialCompleted = true;
+    }
+
     #endregion
 }

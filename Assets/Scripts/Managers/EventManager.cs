@@ -9,10 +9,7 @@ public class EventManager : MonoBehaviour
     //Revised so that functions handling the event will accept an int
     private Dictionary<string, UnityAction> eventDictionary;
 
-    //allows us to access the instance from other classes!
-    private static EventManager eventManager;
-
-    //using our C# setter and getter technique to setup our instance
+    // pbulic instance
     public static EventManager instance;
     
     void Awake()
