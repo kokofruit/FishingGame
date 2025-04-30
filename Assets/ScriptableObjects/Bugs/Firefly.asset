@@ -18,7 +18,7 @@ MonoBehaviour:
     emission of light using chemicals. They primarily use this ability for finding
     mates. Females, generally unable to fly, flash to respond to the species-specific
     flashes of males. Some species synchronize their flashing!
-  catchPhrase: 
+  catchPhrase: You would not believe your eyes...
   model: {fileID: 919132149155446097, guid: e2a7caf60a1ba074faae099218ecf9d2, type: 3}
   difficulty: 5
   price: 12
