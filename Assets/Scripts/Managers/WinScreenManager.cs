@@ -41,7 +41,8 @@ public class WinScreenManager : MonoBehaviour
     public void UnpackBug(Bug bug)
     {
         // Create the spinning model
-        Instantiate(bug.model, spinContainer);
+        GameObject bugModel = Instantiate(bug.model, spinContainer);
+        bugModel.layer = 5;
 
         // Set texts
         nameText.SetText(bug.commonName);

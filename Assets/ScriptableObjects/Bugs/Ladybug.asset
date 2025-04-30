@@ -21,6 +21,6 @@ MonoBehaviour:
   catchPhrase: Now you're bringing in the ladies ;)
   model: {fileID: 919132149155446097, guid: 11511befdc21d304ab83fb8d118a68a2, type: 3}
   difficulty: 3
-  price: 8
+  price: 7
   isDiscovered: 0
   amountCaught: 0

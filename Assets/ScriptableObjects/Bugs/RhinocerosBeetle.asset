@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   commonName: Rhinoceros Beetle
   scientficName: Xylotrupes gideon
-  description: 
-  catchPhrase: 
+  description: Rhinoceros beetles are a group of widely varied beetles. Notable species
+    include Hercules beetles, Atlas beetles, and Elephant beetles. All beetles in
+    this group have a characteristic horn. They use them for digging and fighting
+    their competition during mating season!
+  catchPhrase: Rhino or beetle? Make up your mind.
   model: {fileID: 919132149155446097, guid: 8240e2dbae7eee5489e3321d126d592a, type: 3}
   difficulty: 9
-  price: 40
+  price: 25
   isDiscovered: 1
-  amountCaught: 1
+  amountCaught: 0
