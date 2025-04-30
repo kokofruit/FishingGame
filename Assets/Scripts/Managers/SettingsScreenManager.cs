@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SettingsScreenManager : MonoBehaviour
 {
-
     [SerializeField] Button saveButton;
     [SerializeField] Slider masterVolumeSlider;
     [SerializeField] Slider soundVolumeSlider;
     [SerializeField] Slider musicVolumeSlider;
-    [SerializeField] Button creditsButton;
+    [SerializeField] Button closeButton;
     [SerializeField] AudioMixer audioMixer;
 
     float masterVolume;
@@ -20,10 +21,12 @@ public class SettingsScreenManager : MonoBehaviour
 
     void Awake()
     {
+        // add listeners
         saveButton.onClick.AddListener(SaveButton);
         masterVolumeSlider.onValueChanged.AddListener(MasterVolumeSliderChanged);
         soundVolumeSlider.onValueChanged.AddListener(SoundVolumeSliderChanged);
         musicVolumeSlider.onValueChanged.AddListener(MusicVolumeSliderChanged);
+        closeButton.onClick.AddListener(CloseButton);
     }
 
     void OnEnable()
@@ -116,6 +119,16 @@ public class SettingsScreenManager : MonoBehaviour
         SetMusicVolume(PlayerPrefs.GetFloat("MusicVolume", 0f));
         print("music:" + musicVolume);
         musicVolumeSlider.SetValueWithoutNotify(musicVolume);
+    }
+
+    void CloseButton()
+    {
+        // close scene
+        SceneManager.UnloadSceneAsync("SettingsMenu");
+        
+        // reactivate other scene
+        if (StartScreenManager.instance != null) StartScreenManager.instance.ResumeScreenRaycasts();
+        else if (GameManager.instance != null) GameManager.instance.ResumeScreenRaycasts();
     }
 
 }

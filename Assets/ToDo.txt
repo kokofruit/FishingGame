@@ -1,21 +1,21 @@
 sound
-music
+---music
 visuals
     bug models
     background art/models
 upgrade prices
 saving and loading progress
-settings
-    save game
+---settings
+    ---save game
     ---overall volume
     ---sound volume
     ---music volume
     fullscreen?
     custom cursor?
     credits
-tutorial
-    cast
+---tutorial
+    ---cast
     ---reeling
     ---completion
-    notebook and shop
+    ---notebook and shop
 post-processing???

@@ -8,13 +8,24 @@ using UnityEngine.UI;
 
 public class StartScreenManager : MonoBehaviour
 {
+    public static StartScreenManager instance;
+
     [SerializeField] Button startButton;
     [SerializeField] Button settingsButton;
     [SerializeField] Button quitButton;
-    [SerializeField] AudioClip pressSound;
+
+    CanvasGroup canvasGroup;
 
     void Awake()
     {
+        // Set the singleton instance
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+
+        // cache
+        canvasGroup = GetComponent<CanvasGroup>();
+
+        // add listeners
         startButton.onClick.AddListener(StartGame);
         settingsButton.onClick.AddListener(OpenSettings);
         quitButton.onClick.AddListener(QuitGame);
@@ -22,13 +33,18 @@ public class StartScreenManager : MonoBehaviour
 
     void StartGame()
     {
-        SoundManager.instance.PlaySoundOnce(pressSound);
         SceneManager.LoadScene("FishingGame");
     }
 
     void OpenSettings()
     {
-        SoundManager.instance.PlaySoundOnce(pressSound);
+        SceneManager.LoadScene("SettingsMenu", mode: LoadSceneMode.Additive);
+        canvasGroup.blocksRaycasts = false;
+    }
+
+    public void ResumeScreenRaycasts()
+    {
+        canvasGroup.blocksRaycasts = true;
     }
 
     void QuitGame()
