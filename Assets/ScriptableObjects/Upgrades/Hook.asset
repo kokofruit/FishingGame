@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hook
   m_EditorClassIdentifier: 
   description: Catch rarer bugs!
-  costs: 05000000050000000500000005000000050000000500000005000000050000000500000005000000
+  costs: 0300000006000000090000000c0000000f0000001200000015000000180000001b0000001e000000
   effects:
   - 0
   - 1
@@ -25,4 +25,4 @@ MonoBehaviour:
   - 7
   - 8
   - 9
-  userLevel: 9
+  userLevel: 0

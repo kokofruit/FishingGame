@@ -31,12 +31,23 @@ public class SettingsScreenManager : MonoBehaviour
 
     void OnEnable()
     {
+        // load volume settings to set sliders
         LoadPrefs();
+
+        // disable save button if cannot be saved
+        if (GameManager.instance == null)
+        {
+            saveButton.interactable = false;
+        }
+        else
+        {
+            saveButton.interactable = true;
+        }
     }
 
     void SaveButton()
     {
-
+        GameManager.instance.SaveGame();
     }
 
     #region VOLUME

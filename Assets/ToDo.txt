@@ -1,9 +1,11 @@
 sound
+    notebook
+    doorbell
 ---music
 visuals
     bug models
     background art/models
-upgrade prices
+---upgrade prices
 saving and loading progress
 ---settings
     ---save game
