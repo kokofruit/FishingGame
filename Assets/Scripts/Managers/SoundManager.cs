@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// manager for the sound
 public class SoundManager : MonoBehaviour
 {
+    // public instance
     public static SoundManager instance;
 
+    // prefab for an audiosource player
     [SerializeField] AudioSource audioSourcePrefab;
 
     void Awake()

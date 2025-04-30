@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// animation code for a dot, dot, dot animation
 public class EllipsisController : MonoBehaviour
 {
     RectMask2D rectMask;
@@ -25,6 +26,7 @@ public class EllipsisController : MonoBehaviour
 
     IEnumerator DotDotDot()
     {
+        // every one second, add or subtract a dot
         while (true)
         {
             foreach (float zVal in paddingZValues)

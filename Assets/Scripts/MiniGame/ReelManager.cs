@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+// manager for the reel of the minigame
 public class ReelManager : MonoBehaviour
 {
+    // public instance
     public static ReelManager instance;
 
         // Serialized variables //
@@ -104,6 +106,7 @@ public class ReelManager : MonoBehaviour
         return -1f * angle / Time.deltaTime;
     }
 
+    // adjust sound based on reel's rotation speed
     void AdjustSound(float turnSpeed)
     {
         float volume = turnSpeed * 0.6f;

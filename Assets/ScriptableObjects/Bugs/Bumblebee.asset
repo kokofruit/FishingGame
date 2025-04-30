@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Bumblebee
   m_EditorClassIdentifier: 
   commonName: Bumblebee
-  catchPhrase: 
+  scientficName: 
   description: 
-  model: {fileID: 919132149155446097, guid: 8f60d1c077dc3254ba509a5aec4b15e3, type: 3}
-  difficulty: 3
-  price: 12
+  catchPhrase: 
+  model: {fileID: 919132149155446097, guid: 1d143601610fb85488680cd1a75fc2fc, type: 3}
+  difficulty: 7
+  price: 24
   isDiscovered: 0
   amountCaught: 0

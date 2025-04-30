@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// manager for the tutorial scene
 public class TutorialManager : MonoBehaviour
 {
     // Public instance

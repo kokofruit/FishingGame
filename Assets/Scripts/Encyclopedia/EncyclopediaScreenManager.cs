@@ -4,21 +4,30 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// manager for the encyclopedia screen
+// responsible for notebook index and the resulting entries
 public class EncyclopediaScreenManager : MonoBehaviour
 {
+    // public instance
     public static EncyclopediaScreenManager instance;
 
+    // the prefab used for the index listings
     [SerializeField] Button notebookListingPrefab;
 
-    [Header("Entry Variables")]
+    // the gameobject components of the index and entry screen
+    [Header("Visual Components")]
     [SerializeField] GameObject indexScreen;
     [SerializeField] RectTransform indexScrollViewContent;
     [SerializeField] GameObject entryScreen;
     [SerializeField] TMP_Text entryNameText;
+    [SerializeField] TMP_Text entryScientificText;
     [SerializeField] TMP_Text entryDescText;
+    [SerializeField] TMP_Text entryCaughtText;
     [SerializeField] Transform entryModelContainer;
 
+    // private list of discovered bugs only
     List<Bug> discoveredBugs;
+    // private list of listings in the index
     List<Button> notebookListings = new();
 
     void Awake()
@@ -39,12 +48,14 @@ public class EncyclopediaScreenManager : MonoBehaviour
 
     void OnDisable()
     {
+        // close the entry and clear the index
         CloseEntry();
         ClearListings();
     }
 
     void GetDiscoveredBugList()
     {
+        // get only bugs that have been discovered
         discoveredBugs = new();
         foreach (Bug bug in BugManager.instance.allBugs)
         {
@@ -93,7 +104,9 @@ public class EncyclopediaScreenManager : MonoBehaviour
         
         // set entry texts
         entryNameText.SetText(bug.commonName);
+        entryScientificText.SetText(bug.scientficName);
         entryDescText.SetText(bug.description);
+        entryCaughtText.SetText("Amount Caught: " + bug.amountCaught);
 
         // Create the spinning model
         GameObject model = Instantiate(bug.model, entryModelContainer);

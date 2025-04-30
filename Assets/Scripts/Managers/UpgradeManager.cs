@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// manager for keeping track of upgrades
 public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager instance;
@@ -23,6 +24,7 @@ public class UpgradeManager : MonoBehaviour
 
     public Upgrade GetUpgrade(string upgradeName)
     {
+        // return an upgrade based on name
         foreach (Upgrade upgrade in upgrades)
         {
             if (upgrade.name.ToUpper() == upgradeName.ToUpper())
@@ -36,22 +38,20 @@ public class UpgradeManager : MonoBehaviour
 
     public float GetUpgradeEffect(string upgradeName)
     {
+        // return the effect of an upgrade at its current level
         Upgrade upgrade = GetUpgrade(upgradeName);
         return upgrade.effects[upgrade.userLevel];
     }
 
-    // public int GetUpgradeCost(string upgradeName)
-    // {
-    //     Upgrade upgrade = GetUpgrade(upgradeName);
-    //     return upgrade.costs[upgrade.userLevel];
-    // }
     public int GetUpgradeCost(Upgrade upgrade)
     {
+        // return the cost of an upgrade at its current level
         return upgrade.costs[upgrade.userLevel];
     }
 
     public bool IsUpgradeMax(Upgrade upgrade)
     {
+        // return if an upgrade is at max level
         return upgrade.userLevel == upgrade.effects.Length - 1;
     }
 

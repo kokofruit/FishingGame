@@ -51,6 +51,7 @@ public class TargetManager : MonoBehaviour
         transform.localPosition = new Vector3(0f, 0f, 0f);
         targetState = TargetStates.deciding;
         
+        // start listeners
         if (!GameManager.tutorialCompleted)
         {
             EventManager.StartListening("TutorialReel", enterTutorialListener);
@@ -63,6 +64,7 @@ public class TargetManager : MonoBehaviour
     {
         targetState = TargetStates.nothing;
 
+        // stop listeners
         if (!GameManager.tutorialCompleted)
         {
             EventManager.StopListening("TutorialReel", enterTutorialListener);

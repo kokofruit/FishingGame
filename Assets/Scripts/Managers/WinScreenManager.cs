@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+// manager for the win screen
 public class WinScreenManager : MonoBehaviour
 {
+    // public instance
     public static WinScreenManager instance;
+
+    // visual components
     [SerializeField] Transform spinContainer;
     [SerializeField] TMP_Text nameText;
     [SerializeField] TMP_Text catchPhraseText;

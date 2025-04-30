@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: 8f60d1c077dc3254ba509a5aec4b15e3
+guid: 1d143601610fb85488680cd1a75fc2fc
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bumblebee
+    second: {fileID: 2100000, guid: 4a91e082428fec74181eb7e166fc40ca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bumblebeeWings
+    second: {fileID: 2100000, guid: 2c0880dd52874a04dbc07d1655669ae5, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bumblebee
+    second: {fileID: 2800000, guid: 1f6f4a7a036180c46994265fc258b88f, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

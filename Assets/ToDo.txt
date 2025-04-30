@@ -1,23 +1,23 @@
-sound
-    notebook
-    doorbell
+---sound
+    ??notebook
+    ??doorbell
 ---music
 visuals
-    bug models
+    ---bug models
     background art/models
 ---upgrade prices
-saving and loading progress
+---saving and loading progress
 ---settings
     ---save game
     ---overall volume
     ---sound volume
     ---music volume
-    fullscreen?
-    custom cursor?
-    credits
+    ??fullscreen
+    ??custom cursor
+    ---credits
 ---tutorial
     ---cast
     ---reeling
     ---completion
     ---notebook and shop
-post-processing???
+??post-processing

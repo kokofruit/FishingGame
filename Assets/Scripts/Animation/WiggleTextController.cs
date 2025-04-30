@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// animation code for wiggling text
 public class WiggleTextController : MonoBehaviour
 {
     RectTransform rect;
@@ -19,9 +20,9 @@ public class WiggleTextController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // move each child letter in the transform to a y-position based on the time, the index, and the adjustable variables
         for (int i = 0; i < childRectList.Count; i++)
         {
             RectTransform childRect = childRectList[i];

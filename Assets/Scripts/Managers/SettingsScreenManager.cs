@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+// manager for the settings screen
 public class SettingsScreenManager : MonoBehaviour
 {
+    // visual components
     [SerializeField] Button saveButton;
     [SerializeField] Slider masterVolumeSlider;
     [SerializeField] Slider soundVolumeSlider;
@@ -15,6 +17,7 @@ public class SettingsScreenManager : MonoBehaviour
     [SerializeField] Button closeButton;
     [SerializeField] AudioMixer audioMixer;
 
+    // internal variables for keeping track of volume and setting sliders
     float masterVolume;
     float soundVolume;
     float musicVolume;
@@ -111,7 +114,7 @@ public class SettingsScreenManager : MonoBehaviour
     }
 
     #endregion
-    
+
     #endregion
 
     public void LoadPrefs()
@@ -125,7 +128,7 @@ public class SettingsScreenManager : MonoBehaviour
         SetSoundVolume(PlayerPrefs.GetFloat("SoundVolume", 0f));
         print("sound:" + soundVolume);
         soundVolumeSlider.SetValueWithoutNotify(soundVolume);
-        
+
         // set the music volume and the music slider
         SetMusicVolume(PlayerPrefs.GetFloat("MusicVolume", 0f));
         print("music:" + musicVolume);
@@ -134,12 +137,16 @@ public class SettingsScreenManager : MonoBehaviour
 
     void CloseButton()
     {
-        // close scene
-        SceneManager.UnloadSceneAsync("SettingsMenu");
-        
         // reactivate other scene
         if (StartScreenManager.instance != null) StartScreenManager.instance.ResumeScreenRaycasts();
-        else if (GameManager.instance != null) GameManager.instance.ResumeScreenRaycasts();
+        else if (GameManager.instance != null)
+        {
+            GameManager.instance.ResumeScreenRaycasts();
+            GameManager.instance.SetCastScreen();
+        }
+
+        // close scene
+        SceneManager.UnloadSceneAsync("SettingsMenu");
     }
 
 }

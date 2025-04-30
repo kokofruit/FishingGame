@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// manager for keeping track of bugs
 public class BugManager : MonoBehaviour
 {
     public static BugManager instance;
@@ -23,11 +24,12 @@ public class BugManager : MonoBehaviour
         GameManager.instance.OnReset += OnReset;
     }
 
+    // return a bug based on its name
     public Bug GetBug(string bugName)
     {
         foreach (Bug bug in allBugs)
         {
-            if (bug.commonName == bugName)
+            if (bug.name == bugName)
             {
                 return bug;
             }
@@ -36,19 +38,24 @@ public class BugManager : MonoBehaviour
         return null;
     }
 
+    // function for when a bug is caught from the minigame
     public void CatchBug(Bug bug)
     {
+        // mark it as caught
         bug.isDiscovered = true;
+        // add to the amount caught
         bug.amountCaught += 1;
-
+        // add to the inventory
         inventory.Add(bug);
     }
 
+    // remove the bug from the inventory when sold
     public void SellBug(Bug bug)
     {
         inventory.Remove(bug);
     }
 
+    // get a random bug in the dictionary based on the hook level
     public Bug RandomBug()
     {
         float hookLevel = UpgradeManager.instance.GetUpgradeEffect("hook");
@@ -56,6 +63,7 @@ public class BugManager : MonoBehaviour
         return allBugs[bIndex];
     }
 
+    // reset the bug values
     void OnReset()
     {
         foreach (Bug bug in allBugs)

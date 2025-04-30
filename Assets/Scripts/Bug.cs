@@ -8,10 +8,11 @@ public class Bug : ScriptableObject
 {
     [Header("Display Data")]
     public string commonName;
-    public string catchPhrase;
+    public string scientficName;
     [TextArea]
     public string description;
     [Space(15f)]
+    public string catchPhrase;
     public GameObject model;
 
     [Header("Internal Data")]

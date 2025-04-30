@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
+// manager for the pointer of the minigame
 public class PointerManager : MonoBehaviour
 {
-    // public
+    // public instance
     public static PointerManager instance;
     // Private
     // The moving speed of the pointer

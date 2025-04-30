@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+// manager for the completion radial of the minigame
 public class CompletionManager : MonoBehaviour
 {
     public static CompletionManager instance;
@@ -36,6 +37,7 @@ public class CompletionManager : MonoBehaviour
 
     void OnDisable()
     {
+        // stop listners
         if (!GameManager.tutorialCompleted)
         {
             EventManager.StopListening("TutorialCompletion", tutorialCompletionListener);
@@ -47,20 +49,24 @@ public class CompletionManager : MonoBehaviour
 
     void OnEnable()
     {
+        // start listeners
         if (!GameManager.tutorialCompleted)
         {
             EventManager.StartListening("TutorialCompletion", tutorialCompletionListener);
             EventManager.StartListening("ExitTutorial", exitTutorialListener);
         }
-       
+
+        // reset completion mask
         maskImage.fillAmount = 0.25f;
         isGaining = false;
 
+        // set speeds based on upgrades
         gainSpeed = UpgradeManager.instance.GetUpgradeEffect("reel");
         loseSpeed = UpgradeManager.instance.GetUpgradeEffect("line");
-        
+
+        // start minigame process
         StartCoroutine("GracePeriod");
-        
+
     }
 
     void PauseCompletion()

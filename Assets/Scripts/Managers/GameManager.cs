@@ -7,9 +7,10 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
+// the manager for dealing with major game events
 public class GameManager : MonoBehaviour
 {
-            // PUBLIC //
+    // PUBLIC //
     // The singleton instance of the controller
     public static GameManager instance;
     public static bool tutorialCompleted = false;
@@ -17,7 +18,7 @@ public class GameManager : MonoBehaviour
     public delegate void reset();
     public event reset OnReset;
 
-            // SERIALIZED //
+    // SERIALIZED //
     // Screens to turn on and off
     [Header("Screens")]
     [SerializeField] CanvasGroup miniGameScreen;
@@ -27,8 +28,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] CanvasGroup waitScreen;
     [SerializeField] CanvasGroup shopScreen;
     [SerializeField] CanvasGroup encyclopediaScreen;
-    
-            // PRIVATE //
+
+    // PRIVATE //
     // The current screen, win or lose, null if none
     CanvasGroup currentScreen;
     // The bug being fished for currently
@@ -41,13 +42,14 @@ public class GameManager : MonoBehaviour
         if (instance == null) instance = this;
         else Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
-
-        LoadGame();
     }
 
     void Start()
     {
+        // defualt updates and bugs
         OnReset?.Invoke();
+        LoadGame();
+
         SetScreen(castScreen);
 
         if (!tutorialCompleted)
@@ -55,6 +57,12 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Tutorial", LoadSceneMode.Additive);
         }
     }
+
+    void OnApplicationQuit()
+    {
+        SaveGame();
+    }
+
     #endregion
 
     #region SCREEN MANAGEMENT
@@ -68,16 +76,19 @@ public class GameManager : MonoBehaviour
         if (currentScreen != null) currentScreen.gameObject.SetActive(true);
     }
 
+    // stop the screen from blocking others
     public void PauseScreenRaycasts()
     {
         currentScreen.blocksRaycasts = false;
     }
 
+    // allow the screen to blocking others
     public void ResumeScreenRaycasts()
     {
         currentScreen.blocksRaycasts = true;
     }
 
+    // functions primarily for buttons
     public void SetCastScreen()
     {
         SetScreen(castScreen);
@@ -92,6 +103,13 @@ public class GameManager : MonoBehaviour
     public void SetEncyclopediaScreen()
     {
         SetScreen(encyclopediaScreen);
+    }
+
+    public void OpenSettings()
+    {
+        SceneManager.LoadScene("SettingsMenu", mode: LoadSceneMode.Additive);
+        SetScreen(null);
+        PauseScreenRaycasts();
     }
 
     #endregion
@@ -126,14 +144,17 @@ public class GameManager : MonoBehaviour
         if (!tutorialCompleted) EventManager.TriggerEvent("TutorialReel");
     }
 
-    // End a fishing minigame
+    // win a minigame
     public void WinMiniGame()
     {
+        // change screen
         SetScreen(winScreen);
+        // change win screen to display bug caught
         WinScreenManager.instance.UnpackBug(currentBug);
+        // manage bug catch in bug manager
         BugManager.instance.CatchBug(currentBug);
     }
-    
+
     public void LoseMiniGame()
     {
         SetScreen(loseScreen);
@@ -141,6 +162,7 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region SAVE AND LOAD
     public void SaveGame()
     {
         // create new save
@@ -151,8 +173,13 @@ public class GameManager : MonoBehaviour
         save.tutorialCompleted = tutorialCompleted;
         // money
         save.money = instance.money;
+
         // inventory
-        save.inventory = BugManager.instance.inventory.ToArray();
+        save.inventory = new();
+        foreach (Bug bug in BugManager.instance.inventory)
+        {
+            save.inventory.Add(bug.name);
+        }
 
         // bug states
         save.bugStatuses = new();
@@ -173,7 +200,6 @@ public class GameManager : MonoBehaviour
         // serialize and close
         BinaryFormatter bf = new();
         FileStream saveFile = File.Create(Application.persistentDataPath + "/player.save");
-        print(Application.persistentDataPath);
         bf.Serialize(saveFile, save);
         saveFile.Close();
     }
@@ -185,9 +211,9 @@ public class GameManager : MonoBehaviour
             // open, deserialize, and close file
             BinaryFormatter bf = new();
             FileStream saveFile = File.Open(Application.persistentDataPath + "/player.save", FileMode.Open);
-            SaveState save = (SaveState) bf.Deserialize(saveFile);
+            SaveState save = (SaveState)bf.Deserialize(saveFile);
             saveFile.Close();
-            
+
             // set tutorial completion
             tutorialCompleted = save.tutorialCompleted;
 
@@ -195,7 +221,11 @@ public class GameManager : MonoBehaviour
             money = save.money;
 
             // set inventory
-            BugManager.instance.inventory = save.inventory.ToList<Bug>();
+            foreach (string bugName in save.inventory)
+            {
+                Bug bug = BugManager.instance.GetBug(bugName);
+                BugManager.instance.inventory.Add(bug);
+            }
 
             // set bug states
             for (int i = 0; i < save.bugStatuses.Count; i++)
@@ -217,4 +247,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    #endregion
 }

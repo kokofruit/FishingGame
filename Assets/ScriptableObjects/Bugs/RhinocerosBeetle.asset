@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: RhinocerosBeetle
   m_EditorClassIdentifier: 
   commonName: Rhinoceros Beetle
-  catchPhrase: 
+  scientficName: Xylotrupes gideon
   description: 
+  catchPhrase: 
   model: {fileID: 919132149155446097, guid: 8240e2dbae7eee5489e3321d126d592a, type: 3}
-  difficulty: 5
-  price: 20
-  isDiscovered: 0
-  amountCaught: 0
+  difficulty: 9
+  price: 40
+  isDiscovered: 1
+  amountCaught: 1

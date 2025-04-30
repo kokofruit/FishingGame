@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// the controller for a buy listing for the shop screen
 public class BuyListingController : MonoBehaviour
 {
     // SERIALIZED //

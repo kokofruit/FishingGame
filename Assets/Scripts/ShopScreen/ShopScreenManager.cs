@@ -5,8 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// the manager for the shop screen
+// handles sell and buy screen
 public class ShopScreenManager : MonoBehaviour
 {
+    // public instance
     public static ShopScreenManager instance;
 
     // scroll view for buy and sell screen
@@ -25,8 +28,11 @@ public class ShopScreenManager : MonoBehaviour
     
     List<Button> listings = new();
 
+    // the image for the buy button
     Image buyButtonImage;
+    // the image for the sell button
     Image sellButtonImage;
+    // the color of the inactive overlay for the button
     Color buttonOverlay = new(0.8f, 0.8f, 0.8f);
 
     #region UNITY BUILT-INS
@@ -57,18 +63,22 @@ public class ShopScreenManager : MonoBehaviour
 
     public void SetBuyScreen()
     {
+        // set tab colors
         buyButtonImage.color = Color.white;
         sellButtonImage.color = buttonOverlay;
 
+        // clear the listings and replace
         ClearListings();
         PropagateBuyListings();
     }
 
     public void SetSellScreen()
     {
+        // set tab colors
         buyButtonImage.color = buttonOverlay;
         sellButtonImage.color = Color.white;
 
+        // clear the listings and replace
         ClearListings();
         PropagateSellListings();
     }
@@ -81,7 +91,7 @@ public class ShopScreenManager : MonoBehaviour
     void PropagateBuyListings()
     {   
         // Starting y value
-        int yVal = -25;
+        int yVal = 0;
 
         // Create button listings based off bugs in inventory
         foreach (Upgrade upgrade in UpgradeManager.instance.upgrades)
@@ -97,9 +107,9 @@ public class ShopScreenManager : MonoBehaviour
             listings.Add(listing);
 
             // Change y value for next listing's position
-            yVal -= 175;
+            yVal -= 150;
             // Increase size of scollview 
-            scrollViewContent.sizeDelta = new Vector2(scrollViewContent.sizeDelta.x, scrollViewContent.sizeDelta.y + 175);
+            scrollViewContent.sizeDelta = new Vector2(scrollViewContent.sizeDelta.x, scrollViewContent.sizeDelta.y + 150);
 
         }
     }
@@ -107,7 +117,7 @@ public class ShopScreenManager : MonoBehaviour
     void PropagateSellListings()
     {   
         // Starting y value
-        int yVal = -25;
+        int yVal = 0;
 
         // Create button listings based off bugs in inventory
         foreach (Bug bug in BugManager.instance.inventory)
@@ -122,9 +132,9 @@ public class ShopScreenManager : MonoBehaviour
             listings.Add(listing);
 
             // Change y value for next listing's position
-            yVal -= 175;
+            yVal -= 150;
             // Increase size of scollview 
-            scrollViewContent.sizeDelta = new Vector2(scrollViewContent.sizeDelta.x, scrollViewContent.sizeDelta.y + 175);
+            scrollViewContent.sizeDelta = new Vector2(scrollViewContent.sizeDelta.x, scrollViewContent.sizeDelta.y + 150);
         }
     }
     #endregion
@@ -136,7 +146,7 @@ public class ShopScreenManager : MonoBehaviour
             Destroy(listing.gameObject);
         }
         // reset scrolll view height
-        scrollViewContent.sizeDelta = new Vector2(scrollViewContent.sizeDelta.x, 25);
+        scrollViewContent.sizeDelta = new Vector2(scrollViewContent.sizeDelta.x, 0);
         // empty list
         listings.Clear();
     }
@@ -151,10 +161,10 @@ public class ShopScreenManager : MonoBehaviour
         for (int i = listingIndex; i < listings.Count; i++)
         {
             Button moveListing = listings[i];
-            moveListing.transform.localPosition = new Vector2(moveListing.transform.localPosition.x, moveListing.transform.localPosition.y + 175);
+            moveListing.transform.localPosition = new Vector2(moveListing.transform.localPosition.x, moveListing.transform.localPosition.y + 150);
         }
         // Decrease size of scrollview
-        scrollViewContent.sizeDelta = new Vector2(scrollViewContent.sizeDelta.x, scrollViewContent.sizeDelta.y - 175);
+        scrollViewContent.sizeDelta = new Vector2(scrollViewContent.sizeDelta.x, scrollViewContent.sizeDelta.y - 155);
 
         // Destroy the listing
         Destroy(listing.gameObject);
