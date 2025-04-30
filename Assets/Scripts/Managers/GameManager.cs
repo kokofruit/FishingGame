@@ -109,7 +109,6 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("SettingsMenu", mode: LoadSceneMode.Additive);
         SetScreen(null);
-        PauseScreenRaycasts();
     }
 
     #endregion

@@ -141,7 +141,6 @@ public class SettingsScreenManager : MonoBehaviour
         if (StartScreenManager.instance != null) StartScreenManager.instance.ResumeScreenRaycasts();
         else if (GameManager.instance != null)
         {
-            GameManager.instance.ResumeScreenRaycasts();
             GameManager.instance.SetCastScreen();
         }
 
